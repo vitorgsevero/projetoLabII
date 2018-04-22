@@ -2,12 +2,14 @@ package model;
 
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Clientes {
 
     private String cpfCliente;
     private String nomeCliente;
     private String emailCliente;
+
 
     public Clientes(String nomeCliente, String cpfCliente, String emailCliente) {
         this.nomeCliente = nomeCliente;
@@ -27,8 +29,19 @@ public class Clientes {
         return emailCliente;
     }
 
-    public boolean add(Clientes clientes) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Clientes other = (Clientes) obj;
+        if (!Objects.equals(this.cpfCliente, other.cpfCliente)) {
+            return false;
+        }
+        return true;
     }
 
 }

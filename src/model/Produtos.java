@@ -37,4 +37,8 @@ public class Produtos {
         this.precoProduto = precoProduto;
     }
 
+    public boolean add(Produtos produtos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

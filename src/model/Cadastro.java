@@ -9,29 +9,6 @@ public class Cadastro {
     ArrayList<ContaCliente> listaContas = new ArrayList<>();
     ArrayList<Produtos> listaProdutos = new ArrayList<>();
 
-    public void cadastrarCliente() {
-
-        try {
-
-            System.out.println("\nCadastrando Clientes...");
-            String nome = Console.scanString("Informe o nome do cliente: ");
-            String cpf = Console.scanString("Informe o CPF do cliente: ");
-            String email = Console.scanString("Informe o endereço de e-mail do cliente: ");
-            Clientes clientes = new Clientes(nome, cpf, email);
-            listaClientes.add(clientes);
-
-            int numConta = Console.scanInt(clientes.getNomeCliente() + ", Informe o número da sua conta para cadastrar: ");
-            double saldoConta = Console.scanDouble(clientes.getNomeCliente() + ", Informe o saldo da sua conta: ");
-            ContaCliente conta = new ContaCliente(numConta, saldoConta);
-            listaContas.add(conta);
-
-        } catch (Exception e) {
-
-            System.err.println("Não foi possível cadastrar o cliente, algum valor inválido foi informado.");
-
-        }
-
-    }
 
     public void exibirDadosCliente() {
 

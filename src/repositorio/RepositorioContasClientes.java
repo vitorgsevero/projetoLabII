@@ -30,18 +30,19 @@ public class RepositorioContasClientes {
         return contas;
     }
 
-    public boolean procuraContas(int numConta) {
+    public boolean procuraContas(String numConta) {
         for (ContaCliente contas : contas) {
-            if (contas.getNumConta().equals(numConta)) {
+            if (contas.getNumConta().equalsIgnoreCase(numConta)) {
                 return true;
             }
         }
         return false;
     }
+      
 
-    public ContaCliente buscarContas(int numConta) {
+    public ContaCliente buscarContas(String numConta) {
         for (ContaCliente contas : contas) {
-            if (contas.getNumConta().equals(numConta)) {
+            if (contas.getNumConta().equalsIgnoreCase(numConta)) {
                 return contas;
            }
         }

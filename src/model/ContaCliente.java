@@ -3,19 +3,19 @@ package model;
 
 public class ContaCliente {
 
-    private int numConta = 0;
+    private String numConta;
     private double saldoConta = 0;
 
-    ContaCliente(int numConta, double saldoConta) {
+    public ContaCliente(String numConta, double saldoConta) {
         this.numConta = numConta;
         this.saldoConta = saldoConta;
     }
-    
-    public int getNumConta() {
+
+    public String getNumConta() {
         return numConta;
     }
 
-    public void setNumConta(int numConta) {
+    public void setNumConta(String numConta) {
         this.numConta = numConta;
     }
 

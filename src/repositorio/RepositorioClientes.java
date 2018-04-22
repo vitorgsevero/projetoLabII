@@ -18,8 +18,8 @@ public class RepositorioClientes {
         return instance;
     }
     
-    public boolean add(Clientes clientes) {
-        return (clientes.add(clientes));
+    public boolean add(Clientes cliente) {
+        return (clientes.add(cliente));
     }
     
     public boolean estaVazio(){
@@ -32,7 +32,7 @@ public class RepositorioClientes {
 
     public boolean procuraCliente(String cpf) {
         for (Clientes clientes : clientes) {
-            if (clientes.getCpfCliente().equals(cpf)) {
+            if (clientes.getCpfCliente().equalsIgnoreCase(cpf)) {
                 return true;
             }
         }
@@ -41,7 +41,7 @@ public class RepositorioClientes {
 
     public Clientes buscarClientes(String cpf) {
         for (Clientes clientes : clientes) {
-            if (clientes.getCpfCliente().equals(cpf)) {
+            if (clientes.getCpfCliente().equalsIgnoreCase(cpf)) {
                 return clientes;
            }
         }
