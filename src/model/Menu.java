@@ -4,13 +4,15 @@ package model;
 import java.util.ArrayList;
 import util.Console;
 import view.ClienteUI;
+import view.ProdutoUI;
 
 public class Menu {
 
     public void abrirMenuPrincipal() {
 
         Cadastro c = new Cadastro();
-        ClienteUI cc = new ClienteUI();
+        ClienteUI cui = new ClienteUI();
+        ProdutoUI pui = new ProdutoUI();
 
         int op = 0;
 
@@ -22,19 +24,19 @@ public class Menu {
                 switch (op) {
 
                     case 1:
-                        cc.cadastrarClientes();
+                        cui.cadastrarClientes();
                         break;
 
                     case 2:
-                        cc.listarClientes();
+                        cui.listarClientes();
                         break;
 
                     case 3:
-                        c.cadastrarProduto();
+                        pui.cadastrarProdutos();
                         break;
 
                     case 4:
-                        c.exibirProduto();
+                        pui.listarProdutos();
                         break;
 
                     case 0:

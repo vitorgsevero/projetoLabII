@@ -14,6 +14,7 @@ public class ClienteUI {
     
 
     public void cadastrarClientes(){
+        
         try {
 
             System.out.println("\nCadastrando Clientes...");
@@ -38,6 +39,7 @@ public class ClienteUI {
         if(RepositorioClientes.getInstance().estaVazio()){
             System.out.println("Nenhum cliente cadastrado...");
         }else{
+            System.out.println("\nClientes cadastrados: ");
             for(Clientes clientes : RepositorioClientes.getInstance().getPacientes()){
                 System.out.println("\nCPF: " + clientes.getCpfCliente());
                 System.out.println("E-mail: " + clientes.getEmailCliente());

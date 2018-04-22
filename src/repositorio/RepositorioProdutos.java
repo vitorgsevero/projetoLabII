@@ -12,7 +12,7 @@ private RepositorioProdutos(){
         produtos = new ArrayList<Produtos>();
 }
     
-    public static RepositorioProdutos getinstance(){
+    public static RepositorioProdutos getInstance(){
         if (instance == null) instance = new RepositorioProdutos();
         return instance;
     }    
@@ -25,7 +25,7 @@ private RepositorioProdutos(){
         return produtos.isEmpty();
     }
 
-    public List<Produtos> getContas() {
+    public List<Produtos> getProdutos() {
         return produtos;
     }
 
