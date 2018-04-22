@@ -14,7 +14,7 @@ public class ClienteUI {
     
 
     public void cadastrarClientes(){
-//        try {
+        try {
 
             System.out.println("\nCadastrando Clientes...");
             String nome = Console.scanString("Informe o nome do cliente: ");
@@ -24,11 +24,11 @@ public class ClienteUI {
 
 
 
-//        } catch (Exception e) {
-//
-//            System.err.println("Não foi possível cadastrar o cliente, algum valor inválido foi informado.");
-//
-//        }
+        } catch (Exception e) {
+
+            System.err.println("Não foi possível cadastrar o cliente, algum valor inválido foi informado.");
+
+        }
 
     }
     
@@ -39,8 +39,8 @@ public class ClienteUI {
             System.out.println("Nenhum cliente cadastrado...");
         }else{
             for(Clientes clientes : RepositorioClientes.getInstance().getPacientes()){
-                System.out.println("CPF:" + clientes.getCpfCliente());
-                System.out.println("E-mail:" + clientes.getEmailCliente());
+                System.out.println("\nCPF: " + clientes.getCpfCliente());
+                System.out.println("E-mail: " + clientes.getEmailCliente());
                 System.out.println("Nome: " + clientes.getNomeCliente());
             }
         }
