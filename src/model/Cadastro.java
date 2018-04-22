@@ -10,23 +10,6 @@ public class Cadastro {
     ArrayList<Produtos> listaProdutos = new ArrayList<>();
 
 
-    public void exibirDadosCliente() {
-
-        if (listaClientes.isEmpty()) {
-            System.out.println("Nenhum cliente cadastrado!");
-        } else {
-
-            for (Clientes c : listaClientes) { // varrendo o arraylist com os clientes
-
-                System.out.println("\nNome do cliente: " + c.getNomeCliente());
-                System.out.println("CPF do cliente: " + c.getCpfCliente());
-                System.out.println("Endereço de e-mail: " + c.getEmailCliente());
-
-            }
-
-        }
-    }
-
     public void exibirDadosConta() {
         if (listaContas.isEmpty()) {
             System.out.println("Nenhuma conta cadastrada!");
