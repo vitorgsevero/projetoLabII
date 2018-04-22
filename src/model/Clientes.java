@@ -9,12 +9,16 @@ public class Clientes {
     private String cpfCliente;
     private String nomeCliente;
     private String emailCliente;
+    private String numConta;
+    private double saldoConta = 0;
 
 
-    public Clientes(String nomeCliente, String cpfCliente, String emailCliente) {
+    public Clientes(String nomeCliente, String cpfCliente, String emailCliente, String numConta, double saldoConta) {
         this.nomeCliente = nomeCliente;
         this.cpfCliente = cpfCliente;
         this.emailCliente = emailCliente;
+        this.numConta = numConta;
+        this.saldoConta = saldoConta;
     }
 
     public String getCpfCliente() {
@@ -42,6 +46,14 @@ public class Clientes {
             return false;
         }
         return true;
+    }
+
+    public String getNumConta() {
+        return numConta;
+    }
+
+    public double getSaldoConta() {
+        return saldoConta;
     }
 
 }

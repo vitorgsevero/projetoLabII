@@ -10,7 +10,6 @@ public class Menu {
 
     public void abrirMenuPrincipal() {
 
-        Cadastro c = new Cadastro();
         ClienteUI cui = new ClienteUI();
         ProdutoUI pui = new ProdutoUI();
 
@@ -19,24 +18,20 @@ public class Menu {
         do {
 
           try {
-                op = Console.scanInt("\nBem-vindo! Informe uma opção: \n1) Cadastrar clientes \n2) Exibir dados de clientes cadastrados \n3) Cadastrar Produtos \n4) Exibir produtos \n0)Sair do programa ");
+                op = Console.scanInt("\nBem-vindo ao Menu de Clientes! Informe uma opção de menu: \n1) Clientes \n2) Produtos \n3) Operações de Monetização \n0)Sair do programa ");
 
                 switch (op) {
 
                     case 1:
-                        cui.cadastrarClientes();
+                        cui.menuCliente();
                         break;
 
                     case 2:
-                        cui.listarClientes();
+                        pui.menuProdutos();
                         break;
 
                     case 3:
-                        pui.cadastrarProdutos();
-                        break;
-
-                    case 4:
-                        pui.listarProdutos();
+                        System.out.println("Em desenvolvimento.");
                         break;
 
                     case 0:
@@ -49,6 +44,7 @@ public class Menu {
 
             } catch (Exception e) {
                 System.out.println("Não foi possível acessar as opções do Menu! Por favor, informe uma opção válida.");
+                System.out.println("Erro: " + e.getMessage());
             }
 
         } while (0 != op);

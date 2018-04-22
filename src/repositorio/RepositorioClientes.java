@@ -3,6 +3,7 @@ package repositorio;
 import java.util.ArrayList;
 import java.util.List;
 import model.Clientes;
+import model.ContaCliente;
 
 public class RepositorioClientes {
     
@@ -39,13 +40,26 @@ public class RepositorioClientes {
         return false;
     }
 
-    public Clientes buscarClientes(String cpf) {
-        for (Clientes clientes : clientes) {
-            if (clientes.getCpfCliente().equalsIgnoreCase(cpf)) {
-                return clientes;
-           }
-        }
-        return null;
-    }
+    public void buscarClientes(String cpf) {
+        
+            for (Clientes clientes : RepositorioClientes.getInstance().getClientes()) {
+                if(clientes.getCpfCliente().equalsIgnoreCase(cpf)){
+                    System.out.println("Cliente encontado!");
+                System.out.println("\nInformações do(a) Cliente: " + clientes.getNomeCliente());
+                System.out.println("\n------------------------");
+                System.out.println("Nome: " + clientes.getNomeCliente().toUpperCase());
+                System.out.println("CPF: " + clientes.getCpfCliente());
+                System.out.println("E-mail: " + clientes.getEmailCliente().toLowerCase());
+                System.out.println("Nº de conta: " + clientes.getNumConta());
+                System.out.println("Saldo: " + clientes.getSaldoConta());
+                System.out.println("------------------------");
+                }else{
+                    System.out.println("Nenhum cliente encontrado...");
+                }
+
+            }
     
 }
+    
+    
+}    

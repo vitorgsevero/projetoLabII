@@ -37,5 +37,25 @@ private RepositorioProdutos(){
         }
         return false;
     }
+    
+    public void buscarProdutos(String nomeProduto){
+            for (Produtos produtos : RepositorioProdutos.getInstance().getProdutos()) {
+                
+                if(produtos.getNomeProduto().equalsIgnoreCase(nomeProduto)){
+                    System.out.println("Produto encontado!");
+                System.out.println("\nInformações do Produto: " + produtos.getNomeProduto());
+                System.out.println("\n------------------------");
+                System.out.println("Nome do Produto: " + produtos.getNomeProduto().toUpperCase());
+                System.out.println("Código do Produto: " + produtos.getCodProduto());
+                System.out.println("Preço do Produto: " + produtos.getPrecoProduto());
+                System.out.println("------------------------");
+                }else{
+                    System.out.println("Nenhum produto encontrado...");
+                }
+
+            }
+        
+    }
+    
          
 }

@@ -6,7 +6,46 @@ import util.Console;
 
 public class ProdutoUI {
     
-// falta adicionar o menu de produtos    
+// falta adicionar o menu de produtos   
+    
+    public void menuProdutos() {
+        int op = 0;
+        do {
+
+            try {
+                op = Console.scanInt("\nBem-vindo ao Menu de Produtos! Informe uma opção: \n1) Cadastrar Produtos \n2) Listar Produtos \n3) Buscar Produtos \n0)Voltar para o menu principal");
+
+                switch (op) {
+
+                    case 1:
+                        this.cadastrarProdutos();
+                        break;
+
+                    case 2:
+                        this.listarProdutos();
+                        break;
+                        
+                    case 3:
+                        this.buscarClientes();
+                        break;
+
+                    case 0:
+                        System.out.println("\nVoltando para o menu principal...");
+                        break;
+
+                    default:
+                        System.out.println("Opção inválida!");
+                }
+
+            } catch (Exception e) {
+                System.out.println("Não foi possível acessar as opções do Menu de Clientes! Por favor, informe uma opção válida.");
+            }
+
+        } while (op!=0);
+
+    }
+    
+    
     
     public void cadastrarProdutos(){
         
@@ -37,6 +76,14 @@ public class ProdutoUI {
                 System.out.println("Preço do Produto: " + produtos.getPrecoProduto());
             }
         }
+    }
+    
+    public void buscarClientes(){
+        
+        System.out.println("\nBUSCANDO PRODUTO: ");
+        String nomeProduto = Console.scanString("Informe o nome do produto: ");
+        RepositorioProdutos.getInstance().buscarProdutos(nomeProduto);
+  
     }
     
     
