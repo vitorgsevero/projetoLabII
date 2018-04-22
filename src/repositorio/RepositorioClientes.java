@@ -26,7 +26,7 @@ public class RepositorioClientes {
         return clientes.isEmpty();
     }
 
-    public List<Clientes> getPacientes() {
+    public List<Clientes> getClientes() {
         return clientes;
     }
 

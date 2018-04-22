@@ -9,7 +9,7 @@ import util.Console;
 public class ClienteUI {
      
     
-    
+// falta adicionar o MENU de clientes    
 
     
 
@@ -22,6 +22,11 @@ public class ClienteUI {
             String cpf = Console.scanString("Informe o CPF do cliente: ");
             String email = Console.scanString("Informe o endereço de e-mail do cliente: ");
             RepositorioClientes.getInstance().add(new Clientes(nome, cpf, email));
+            
+            String numConta = Console.scanString(RepositorioClientes.getInstance().getClientes()+ ", Informe o número da sua conta para cadastrar: ");
+            double saldoConta = Console.scanDouble(RepositorioClientes.getInstance().getClientes() + ", Informe o saldo da sua conta: ");
+            
+            RepositorioContasClientes.getinstance().add(new ContaCliente(numConta, saldoConta));
 
 
 
@@ -40,22 +45,12 @@ public class ClienteUI {
             System.out.println("Nenhum cliente cadastrado...");
         }else{
             System.out.println("\nClientes cadastrados: ");
-            for(Clientes clientes : RepositorioClientes.getInstance().getPacientes()){
-                System.out.println("\nCPF: " + clientes.getCpfCliente());
-                System.out.println("E-mail: " + clientes.getEmailCliente());
-                System.out.println("Nome: " + clientes.getNomeCliente());
+            for(Clientes clientes : RepositorioClientes.getInstance().getClientes()){
+                System.out.println("\nNome: " + clientes.getNomeCliente().toUpperCase());
+                System.out.println("CPF: " + clientes.getCpfCliente());
+                System.out.println("E-mail: " + clientes.getEmailCliente().toLowerCase());     
             }
         }
         
     }
-    
-    
-    public void cadastrarContas(){
-        
-            String numConta = Console.scanString(RepositorioClientes.getInstance().getPacientes()+ ", Informe o número da sua conta para cadastrar: ");
-            double saldoConta = Console.scanDouble(RepositorioClientes.getInstance().getPacientes() + ", Informe o saldo da sua conta: ");
-            
-            RepositorioContasClientes.getinstance().add(new ContaCliente(numConta, saldoConta));
-    }
-    
-}
+}     

@@ -6,6 +6,7 @@ import util.Console;
 
 public class ProdutoUI {
     
+// falta adicionar o menu de produtos    
     
     public void cadastrarProdutos(){
         
@@ -32,7 +33,7 @@ public class ProdutoUI {
             System.out.println("\nProdutos cadastrados: ");
             for(Produtos produtos : RepositorioProdutos.getInstance().getProdutos()){
                 System.out.println("\nCódigo do Produto: " + produtos.getCodProduto());
-                System.out.println("Nome do Produto: " + produtos.getNomeProduto());
+                System.out.println("Nome do Produto: " + produtos.getNomeProduto().toUpperCase());
                 System.out.println("Preço do Produto: " + produtos.getPrecoProduto());
             }
         }
