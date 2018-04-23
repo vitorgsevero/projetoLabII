@@ -11,7 +11,7 @@ public class ClienteUI {
         do {
 
             try {
-                op = Console.scanInt("\nBem-vindo ao Menu de Cliente! Informe uma opção: \n1) Cadastrar clientes \n2) Exibir dados de clientes cadastrados \n3) Buscar Clientes \n0)Voltar para o menu anterior ");
+                op = Console.scanInt("\nBem-vindo ao Menu de Cliente! Informe uma opção: \n1) Cadastrar clientes \n2) Listar clientes \n3) Buscar Clientes \n0) Voltar para o menu anterior ");
 
                 switch (op) {
 
@@ -67,7 +67,7 @@ public class ClienteUI {
     public void listarClientes() {
 
         if (RepositorioClientes.getInstance().estaVazio()) {
-            System.out.println("Nenhum cliente cadastrado...");
+            System.out.println("\nNenhum cliente cadastrado...");
         } else {
             System.out.println("\nClientes cadastrados: ");
             for (Clientes clientes : RepositorioClientes.getInstance().getClientes()) {
@@ -77,7 +77,7 @@ public class ClienteUI {
                 System.out.println("CPF: " + clientes.getCpfCliente());
                 System.out.println("E-mail: " + clientes.getEmailCliente().toLowerCase());
                 System.out.println("Nº de conta: " + clientes.getNumConta());
-                System.out.println("Saldo: " + clientes.getSaldoConta());
+                System.out.println("Saldo: " + clientes.getSaldoConta()+ " R$");
                 System.out.println("------------------------");
 
             }

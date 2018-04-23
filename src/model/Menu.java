@@ -20,7 +20,7 @@ public class Menu {
         do {
 
           try {
-                op = Console.scanInt("\nBem-vindo ao Menu Principal! Informe uma opção de menu: \n1) Clientes \n2) Produtos \n3) Operações de Monetização \n0)Sair do programa ");
+                op = Console.scanInt("\nBem-vindo ao Menu Principal! Informe uma opção: \n1) Clientes \n2) Produtos \n3) Operações de Monetização \n0) Sair do programa ");
 
                 switch (op) {
 

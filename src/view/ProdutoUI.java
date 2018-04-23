@@ -12,7 +12,7 @@ public class ProdutoUI {
         do {
 
             try {
-                op = Console.scanInt("\nBem-vindo ao Menu de Produtos! Informe uma opção: \n1) Cadastrar Produtos \n2) Listar Produtos \n3) Buscar Produtos \n0)Voltar para o menu principal");
+                op = Console.scanInt("\nBem-vindo ao Menu de Produtos! Informe uma opção: \n1) Cadastrar Produtos \n2) Listar Produtos \n3) Buscar Produtos \n0) Voltar para o menu principal");
 
                 switch (op) {
 
@@ -25,7 +25,7 @@ public class ProdutoUI {
                         break;
                         
                     case 3:
-                        this.buscarClientes();
+                        this.buscarProdutos();
                         break;
 
                     case 0:
@@ -77,7 +77,7 @@ public class ProdutoUI {
         }
     }
     
-    public void buscarClientes(){
+    public void buscarProdutos(){
         
         System.out.println("\nBUSCANDO PRODUTO: ");
         String nomeProduto = Console.scanString("Informe o nome do produto: ");
