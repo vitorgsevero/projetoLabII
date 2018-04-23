@@ -6,7 +6,6 @@ import util.Console;
 
 public class ProdutoUI {
     
-// falta adicionar o menu de produtos   
     
     public void menuProdutos() {
         int op = 0;

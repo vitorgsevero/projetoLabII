@@ -52,13 +52,13 @@ public class OperacaoMonetizacaoUI {
 
             System.out.println("\nRealizando depósito...");
             
-            String cpf = Console.scanString("Informe o CPF do cliente: ");
+            String numConta = Console.scanString("Informe o Nº de conta do cliente: ");
             
             for (Clientes clientes : RepositorioClientes.getInstance().getClientes()) {
-                if(clientes.getCpfCliente().equalsIgnoreCase(cpf)){
+                if(clientes.getNumConta().equalsIgnoreCase(numConta)){
                     
                     System.out.println("\nCliente encontrado!");
-                    System.out.println("\nInformações do(a) Cliente: " + clientes.getNomeCliente());
+                    System.out.println("\nInformações do Cliente: " + clientes.getNomeCliente());
                     System.out.println("\n------------------------");
                     System.out.println("Nome: " + clientes.getNomeCliente().toUpperCase());
                     System.out.println("CPF: " + clientes.getCpfCliente());
@@ -68,13 +68,19 @@ public class OperacaoMonetizacaoUI {
                     System.out.println("------------------------");
                    
                     double valorDeposito = Console.scanDouble("Informe o valor para depositar: ");
+                    
+                    if(valorDeposito <=0){
+                        System.out.println("Valor inválido!");
+                        break;
+                    }
+                    
                     double novoSaldoConta = valorDeposito + clientes.getSaldoConta();
                     
                     clientes.setSaldoConta(novoSaldoConta);
                     System.out.println("Novo saldo: " + novoSaldoConta);
 
                 } else {
-                    System.out.println("CPF não encontrado.");
+                    System.out.println("Nº de conta não encontrado.");
                 }
             }
 
