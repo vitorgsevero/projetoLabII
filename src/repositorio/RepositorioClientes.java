@@ -50,7 +50,17 @@ public class RepositorioClientes {
 
             }
     
-}
+    }
+    
+    public boolean clienteIgual (String cpf) {
+        for (Clientes clientes : clientes) {
+            if (clientes.getCpfCliente().equalsIgnoreCase(cpf)) {
+               return true;
+            }
+        }
+        return false;
+    }    
+    
     
     
 }    
