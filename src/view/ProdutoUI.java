@@ -5,8 +5,7 @@ import repositorio.RepositorioProdutos;
 import util.Console;
 
 public class ProdutoUI {
-    
-    
+
     public void menuProdutos() {
         int op = 0;
         do {
@@ -23,7 +22,7 @@ public class ProdutoUI {
                     case 2:
                         this.listarProdutos();
                         break;
-                        
+
                     case 3:
                         this.buscarProdutos();
                         break;
@@ -40,52 +39,57 @@ public class ProdutoUI {
                 System.out.println("Não foi possível acessar as opções do Menu de Clientes! Por favor, informe uma opção válida.");
             }
 
-        } while (op!=0);
+        } while (op != 0);
 
     }
-    
-    
-    
-    public void cadastrarProdutos(){
-        
-         try {
+
+    public void cadastrarProdutos() {
+
+        try {
 
             System.out.println("\nCadastrando Produtos...");
-            String nomeProduto = Console.scanString("Informe o nome do Produto: ");
-            String codigoProduto = Console.scanString("Informe o código do Produto: ");
-            double precoProduto = Console.scanDouble("Informe o preço do Produto: ");
-            RepositorioProdutos.getInstance().add(new Produtos(nomeProduto, codigoProduto, precoProduto));
 
+            String codigoProduto = Console.scanString("Informe o código do Produto: ");
+            if (RepositorioProdutos.getInstance().produtoIgual(codigoProduto)) {
+                
+                System.out.println("Produto já cadastrado, informe outro código de produto. ");
+                
+            } else {
+                
+                String nomeProduto = Console.scanString("Informe o nome do Produto: ");
+                double precoProduto = Console.scanDouble("Informe o preço do Produto: ");
+                RepositorioProdutos.getInstance().add(new Produtos(nomeProduto, codigoProduto, precoProduto));
+                
+            }
 
         } catch (Exception e) {
 
-            System.err.println("Não foi possível cadastrar o cliente, algum valor inválido foi informado.");
+            System.out.println("Não foi possível cadastrar o produto, algum valor inválido foi informado.");
 
         }
     }
-    
-    public void listarProdutos(){
-        if(RepositorioProdutos.getInstance().estaVazio()){
-            System.out.println("Nenhum produto cadastrado...");
-        }else{
+
+    public void listarProdutos() {
+        if (RepositorioProdutos.getInstance().estaVazio()) {
+            System.out.println("\nNenhum produto cadastrado...");
+        } else {
             System.out.println("\nProdutos cadastrados: ");
-            for(Produtos produtos : RepositorioProdutos.getInstance().getProdutos()){
-                System.out.println("\nCódigo do Produto: " + produtos.getCodProduto());
+            for (Produtos produtos : RepositorioProdutos.getInstance().getProdutos()) {
+                System.out.println("\n------------------------");
+                System.out.println("Código do Produto: " + produtos.getCodProduto());
                 System.out.println("Nome do Produto: " + produtos.getNomeProduto().toUpperCase());
-                System.out.println("Preço do Produto: " + produtos.getPrecoProduto());
+                System.out.println("Preço do Produto: " + produtos.getPrecoProduto() + " R$");
+                System.out.println("------------------------");
             }
         }
     }
-    
-    public void buscarProdutos(){
-        
+
+    public void buscarProdutos() {
+
         System.out.println("\nBUSCANDO PRODUTO: ");
-        String nomeProduto = Console.scanString("Informe o nome do produto: ");
-        RepositorioProdutos.getInstance().buscarProdutos(nomeProduto);
-  
+        String codigoProduto = Console.scanString("Informe o código do produto: ");
+        RepositorioProdutos.getInstance().buscarProdutos(codigoProduto);
+
     }
-    
-    
-    
-    
+
 }

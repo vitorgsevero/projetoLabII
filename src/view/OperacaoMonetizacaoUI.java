@@ -7,7 +7,7 @@ import repositorio.RepositorioOperacaoMonetizacao;
 import util.Console;
 
 public class OperacaoMonetizacaoUI {
-    
+
     public void menuOperacoes() {
         int op = 0;
         do {
@@ -24,10 +24,10 @@ public class OperacaoMonetizacaoUI {
                     case 2:
                         System.out.println("Em desenvolvimento.");
                         break;
-                    
+
                     case 3:
                         this.listarSaldoCliente();
-                     break;
+                        break;
 
                     case 0:
                         System.out.println("\nVoltando para o menu principal...");
@@ -41,22 +41,21 @@ public class OperacaoMonetizacaoUI {
                 System.out.println("Não foi possível acessar as opções do Menu de Operações de Monetização! Por favor, informe uma opção válida.");
             }
 
-        } while (op!=0);
+        } while (op != 0);
 
     }
-    
-    
-      public void depositarValor() {
+
+    public void depositarValor() {
 
         try {
 
             System.out.println("\nRealizando depósito...");
-            
+
             String numConta = Console.scanString("\nInforme o Nº de conta do cliente: ");
-            
+
             for (Clientes clientes : RepositorioClientes.getInstance().getClientes()) {
-                if(clientes.getNumConta().equalsIgnoreCase(numConta)){
-                    
+                if (clientes.getNumConta().equalsIgnoreCase(numConta)) {
+
                     System.out.println("\nCliente encontrado!");
                     System.out.println("\nInformações do Cliente: " + clientes.getNomeCliente());
                     System.out.println("\n------------------------");
@@ -66,18 +65,22 @@ public class OperacaoMonetizacaoUI {
                     System.out.println("Nº de conta: " + clientes.getNumConta());
                     System.out.println("Saldo: " + clientes.getSaldoConta() + " R$");
                     System.out.println("------------------------");
-                   
-                    double valorDeposito = Console.scanDouble("\nInforme o valor para depositar: ");
-                    
-                    if(valorDeposito <=0){
+
+                    try {
+                        double valorDeposito = Console.scanDouble("\nInforme o valor para depositar: ");
+
+                        if (valorDeposito <= 0) {
+                            System.out.println("Valor inválido!");
+                            break;
+                        }
+
+                        double novoSaldoConta = valorDeposito + clientes.getSaldoConta();
+                        clientes.setSaldoConta(novoSaldoConta);
+                        System.out.println("Novo saldo: " + novoSaldoConta + " R$");
+
+                    } catch (Exception e) {
                         System.out.println("Valor inválido!");
-                        break;
                     }
-                    
-                    double novoSaldoConta = valorDeposito + clientes.getSaldoConta();
-                    
-                    clientes.setSaldoConta(novoSaldoConta);
-                    System.out.println("Novo saldo: " + novoSaldoConta + " R$");
 
                 } else {
                     System.out.println("Nº de conta não encontrado.");
@@ -92,25 +95,26 @@ public class OperacaoMonetizacaoUI {
 
     }
 
-  public void listarSaldoCliente() {
+    public void listarSaldoCliente() {
 
-            String numConta = Console.scanString("Informe o Nº de conta do cliente: ");
-            for (Clientes clientes : RepositorioClientes.getInstance().getClientes()) {
-                if(clientes.getNumConta().equalsIgnoreCase(numConta)){
-                    System.out.println("\n------------------------");
-                    System.out.println("Nome do Cliente: " + clientes.getNomeCliente().toUpperCase());
-                    System.out.println("Nº de conta do Cliente: " + clientes.getNumConta());
-                    System.out.println("Saldo: " + clientes.getSaldoConta()+ " R$");
-                    System.out.println("------------------------");
-                }
-                
-            }   
-  }
-    public void buscarClientes(){
-        
+        String numConta = Console.scanString("Informe o Nº de conta do cliente: ");
+        for (Clientes clientes : RepositorioClientes.getInstance().getClientes()) {
+            if (clientes.getNumConta().equalsIgnoreCase(numConta)) {
+                System.out.println("\n------------------------");
+                System.out.println("Nome do Cliente: " + clientes.getNomeCliente().toUpperCase());
+                System.out.println("Nº de conta do Cliente: " + clientes.getNumConta());
+                System.out.println("Saldo: " + clientes.getSaldoConta() + " R$");
+                System.out.println("------------------------");
+            }
+
+        }
+    }
+
+    public void buscarClientes() {
+
         System.out.println("\nBUSCANDO CLIENTE: ");
         String cpf = Console.scanString("Informe o CPF do cliente: ");
         RepositorioClientes.getInstance().buscarClientes(cpf);
-  
+
     }
 }
