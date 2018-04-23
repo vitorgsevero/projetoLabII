@@ -1,7 +1,6 @@
 package view;
 
 import model.Clientes;
-import model.ContaCliente;
 import repositorio.RepositorioClientes;
 import util.Console;
 
@@ -12,7 +11,7 @@ public class ClienteUI {
         do {
 
             try {
-                op = Console.scanInt("\nBem-vindo! Informe uma opção: \n1) Cadastrar clientes \n2) Exibir dados de clientes cadastrados \n3) Buscar Clientes \n0)Voltar para o menu anterior ");
+                op = Console.scanInt("\nBem-vindo ao Menu de Cliente! Informe uma opção: \n1) Cadastrar clientes \n2) Exibir dados de clientes cadastrados \n3) Buscar Clientes \n0)Voltar para o menu anterior ");
 
                 switch (op) {
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import util.Console;
 import view.ClienteUI;
 import view.ProdutoUI;
+import view.OperacaoMonetizacaoUI;
 
 public class Menu {
 
@@ -12,13 +13,14 @@ public class Menu {
 
         ClienteUI cui = new ClienteUI();
         ProdutoUI pui = new ProdutoUI();
+        OperacaoMonetizacaoUI omUI =  new OperacaoMonetizacaoUI(); 
 
         int op = 0;
 
         do {
 
           try {
-                op = Console.scanInt("\nBem-vindo ao Menu de Clientes! Informe uma opção de menu: \n1) Clientes \n2) Produtos \n3) Operações de Monetização \n0)Sair do programa ");
+                op = Console.scanInt("\nBem-vindo ao Menu Principal! Informe uma opção de menu: \n1) Clientes \n2) Produtos \n3) Operações de Monetização \n0)Sair do programa ");
 
                 switch (op) {
 
@@ -31,7 +33,7 @@ public class Menu {
                         break;
 
                     case 3:
-                        System.out.println("Em desenvolvimento.");
+                        omUI.menuOperacoes();
                         break;
 
                     case 0:

@@ -56,4 +56,11 @@ public class Clientes {
         return saldoConta;
     }
 
+    /**
+     Criação do setSaldoConta para alterar o valor do saldo quando um depósito ou uma transferência é feita
+     */
+    public void setSaldoConta(double saldoConta) {
+        this.saldoConta = saldoConta;
+    }
+
 }

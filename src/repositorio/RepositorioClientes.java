@@ -3,7 +3,6 @@ package repositorio;
 import java.util.ArrayList;
 import java.util.List;
 import model.Clientes;
-import model.ContaCliente;
 
 public class RepositorioClientes {
     
@@ -31,14 +30,6 @@ public class RepositorioClientes {
         return clientes;
     }
 
-    public boolean procuraCliente(String cpf) {
-        for (Clientes clientes : clientes) {
-            if (clientes.getCpfCliente().equalsIgnoreCase(cpf)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public void buscarClientes(String cpf) {
         
