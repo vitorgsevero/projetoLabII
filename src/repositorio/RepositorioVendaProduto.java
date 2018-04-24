@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.VendaProduto;
 
+
 public class RepositorioVendaProduto {
 
     private List<VendaProduto> vendaProduto;
