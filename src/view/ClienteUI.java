@@ -48,23 +48,36 @@ public class ClienteUI {
         System.out.println("\nCadastrando Clientes...");
 
         String cpf = Console.scanString("Informe o CPF do cliente: ");
+
         if (RepositorioClientes.getInstance().clienteIgual(cpf)) {
             System.out.println("CPF já cadastrado, informe outro CPF.");
         } else {
+
             String nome = Console.scanString("Informe o nome do cliente: ");
             String email = Console.scanString("Informe o endereço de e-mail do cliente: ");
             String numConta = Console.scanString(nome.toUpperCase() + ", Informe o número da sua conta para cadastrar: ");
-            double saldoConta = Console.scanDouble(nome.toUpperCase() + ", Informe o saldo da sua conta: ");
-            double valorTransferencia = 0;
 
-            try {
-                RepositorioClientes.getInstance().add(new Clientes(nome, cpf, email, numConta, saldoConta, valorTransferencia));
+            if (RepositorioClientes.getInstance().contaIgual(numConta)) {
+                
+                System.out.println("Conta já cadastrada, informe outro número de conta.");
+                
+            } else {
+                
+                double saldoConta = Console.scanDouble(nome.toUpperCase() + ", Informe o saldo da sua conta: ");
+                double valorTransferencia = 0;
 
-            } catch (Exception e) {
+                try {
 
-                System.out.println("Não foi possível cadastrar o cliente, algum valor inválido foi informado.");
+                    RepositorioClientes.getInstance().add(new Clientes(nome, cpf, email, numConta, saldoConta, valorTransferencia));
+
+                } catch (Exception e) {
+
+                    System.out.println("Não foi possível cadastrar o cliente, algum valor inválido foi informado.");
+
+                }
 
             }
+
         }
     }
 
@@ -75,7 +88,6 @@ public class ClienteUI {
         } else {
             System.out.println("\nClientes cadastrados: ");
             for (Clientes clientes : RepositorioClientes.getInstance().getClientes()) {
-                System.out.println("\nInformações do(a) Cliente: " + clientes.getNomeCliente());
                 System.out.println("\n------------------------");
                 System.out.println("Nome: " + clientes.getNomeCliente().toUpperCase());
                 System.out.println("CPF: " + clientes.getCpfCliente());

@@ -31,12 +31,11 @@ public class RepositorioClientes {
     }
 
 
-    public void buscarClientes(String cpf) {
+    public void buscarClientes(String cpf) { // Retorna os dados do cliente caso o CPF esteja cadastrado
         
             for (Clientes clientes : RepositorioClientes.getInstance().getClientes()) {
                 if(clientes.getCpfCliente().equalsIgnoreCase(cpf)){
-                    System.out.println("Cliente encontado!");
-                System.out.println("\nInformações do(a) Cliente: " + clientes.getNomeCliente());
+
                 System.out.println("\n------------------------");
                 System.out.println("Nome: " + clientes.getNomeCliente().toUpperCase());
                 System.out.println("CPF: " + clientes.getCpfCliente());
@@ -52,14 +51,24 @@ public class RepositorioClientes {
     
     }
     
-    public boolean clienteIgual (String cpf) {
+    public boolean clienteIgual (String cpf) {  //Verifica se o CPF informado já foi cadastrado
         for (Clientes clientes : clientes) {
             if (clientes.getCpfCliente().equalsIgnoreCase(cpf)) {
                return true;
             }
         }
         return false;
-    }    
+    }   
+    
+    
+    public boolean contaIgual (String numConta) { // Verifica se a conta informada já foi cadastrada
+        for (Clientes clientes : clientes) {
+            if (clientes.getCpfCliente().equalsIgnoreCase(numConta)) {
+               return true;
+            }
+        }
+        return false;
+    } 
     
     
     

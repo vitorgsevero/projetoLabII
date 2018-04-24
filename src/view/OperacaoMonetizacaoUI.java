@@ -57,7 +57,7 @@ public class OperacaoMonetizacaoUI {
                 if (clientes.getNumConta().equalsIgnoreCase(numConta)) {
 
                     System.out.println("\nCliente encontrado!");
-                    System.out.println("\nInformações do Cliente: " + clientes.getNomeCliente());
+                    
                     System.out.println("\n------------------------");
                     System.out.println("Nome: " + clientes.getNomeCliente().toUpperCase());
                     System.out.println("CPF: " + clientes.getCpfCliente());
@@ -100,6 +100,7 @@ public class OperacaoMonetizacaoUI {
         String numConta = Console.scanString("\nInforme o Nº de conta do cliente que vai transferir: ");
         
         double valorTransferencia=0;
+        double novoSaldoConta;
 
         for (Clientes clientes : RepositorioClientes.getInstance().getClientes()) {
             if (clientes.getNumConta().equalsIgnoreCase(numConta)) {
@@ -123,7 +124,7 @@ public class OperacaoMonetizacaoUI {
                     }
 
                     
-                    double novoSaldoConta = clientes.getSaldoConta() - valorTransferencia;
+                    novoSaldoConta = clientes.getSaldoConta() - valorTransferencia;
                   
                     clientes.setSaldoConta(novoSaldoConta);
 
@@ -149,7 +150,7 @@ public class OperacaoMonetizacaoUI {
                 System.out.println("Nome: " + clientes.getNomeCliente().toUpperCase());
                 System.out.println("CPF: " + clientes.getCpfCliente());
                 System.out.println("Nº de conta: " + clientes.getNumConta());
-                System.out.println("Saldo sem o valor da transferência: " + clientes.getSaldoConta());
+                System.out.println("Saldo sem o valor da transferência: " + clientes.getSaldoConta() + " R$");
                 System.out.println("------------------------");
 
             
@@ -162,7 +163,12 @@ public class OperacaoMonetizacaoUI {
 
             System.out.println("Novo saldo da conta : " + novoSaldoConta2 + " R$");
             System.out.println("------------------------");
-            }   
+            } else { // Caso não encontre a segunda conta, ele informa para o usuário e passa o valor da transferência de volta pra conta inicial
+                 System.out.println("Conta que vai receber o valor não foi encontrada...");
+                 /*novoSaldoConta = clientes.getSaldoConta() + valorTransferencia;
+                 clientes.setSaldoConta(novoSaldoConta);*/
+            }  
+             
         }
     }
 
