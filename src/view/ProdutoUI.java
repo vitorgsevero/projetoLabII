@@ -9,6 +9,7 @@ import repositorio.RepositorioProdutos;
 import repositorio.RepositorioVendaProduto;
 import util.Console;
 
+
 public class ProdutoUI {
 
     public void menuProdutos() {

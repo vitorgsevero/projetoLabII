@@ -137,6 +137,7 @@ public class OperacaoMonetizacaoUI {
             } 
         }
 
+        
         // Adicionando o valor da transferência na outra conta
         
         String numConta2 = Console.scanString("\nInforme o Nº da conta que vai receber o valor da transferência: ");
