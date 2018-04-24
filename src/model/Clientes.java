@@ -11,14 +11,16 @@ public class Clientes {
     private String emailCliente;
     private String numConta;
     private double saldoConta = 0;
+    private double valorTransferencia = 0;
 
 
-    public Clientes(String nomeCliente, String cpfCliente, String emailCliente, String numConta, double saldoConta) {
+    public Clientes(String nomeCliente, String cpfCliente, String emailCliente, String numConta, double saldoConta, double valorTransferencia) {
         this.nomeCliente = nomeCliente;
         this.cpfCliente = cpfCliente;
         this.emailCliente = emailCliente;
         this.numConta = numConta;
         this.saldoConta = saldoConta;
+        this.valorTransferencia = valorTransferencia;
     }
 
     public String getCpfCliente() {
@@ -61,6 +63,14 @@ public class Clientes {
      */
     public void setSaldoConta(double saldoConta) {
         this.saldoConta = saldoConta;
+    }
+
+    public double getValorTransferencia() {
+        return valorTransferencia;
+    }
+
+    public void setValorTransferencia(double valorTransferencia) {
+        this.valorTransferencia = valorTransferencia;
     }
 
 }

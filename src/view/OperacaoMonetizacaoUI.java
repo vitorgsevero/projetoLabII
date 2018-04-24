@@ -22,7 +22,7 @@ public class OperacaoMonetizacaoUI {
                         break;
 
                     case 2:
-                        System.out.println("Em desenvolvimento.");
+                        this.realizarTransferencia();
                         break;
 
                     case 3:
@@ -95,9 +95,76 @@ public class OperacaoMonetizacaoUI {
 
     }
 
+    public void realizarTransferencia() {
+
+        System.out.println("\nRealizando transferência...");
+
+        String numConta = Console.scanString("\nInforme o Nº de conta do cliente que vai transferir: ");
+
+        for (Clientes clientes : RepositorioClientes.getInstance().getClientes()) {
+            if (clientes.getNumConta().equalsIgnoreCase(numConta)) {
+
+                System.out.println("\nCliente encontrado!");
+                System.out.println("\nInformações do Cliente: " + clientes.getNomeCliente());
+                System.out.println("\n------------------------");
+                System.out.println("Nome: " + clientes.getNomeCliente().toUpperCase());
+                System.out.println("CPF: " + clientes.getCpfCliente());
+                System.out.println("E-mail: " + clientes.getEmailCliente().toLowerCase());
+                System.out.println("Nº de conta: " + clientes.getNumConta());
+                System.out.println("Saldo: " + clientes.getSaldoConta() + " R$");
+                System.out.println("------------------------");
+
+                try {
+                    double valorTransferencia = Console.scanDouble("\nInforme o valor para transferir: ");
+                      clientes.setValorTransferencia(valorTransferencia);
+                    if (valorTransferencia <= 0) {
+                        System.out.println("Valor inválido!");
+                        break;
+                    }
+
+                    double novoSaldoConta = clientes.getSaldoConta() - valorTransferencia;
+                  
+                    clientes.setSaldoConta(novoSaldoConta);
+
+                    System.out.println("Novo saldo de " + clientes.getNomeCliente() + ": " + novoSaldoConta + " R$");
+
+                } catch (Exception e) {
+                    System.out.println("Valor inválido!");
+                }
+
+            } 
+        }
+
+        // Adicionando o valor da transferência na outra conta
+        
+        String numConta2 = Console.scanString("Informe o Nº da conta que vai receber o valor da transferência: ");
+
+        for (Clientes clientes : RepositorioClientes.getInstance().getClientes()) {
+            if (clientes.getNumConta().equalsIgnoreCase(numConta2)) {
+
+                System.out.println("\nCliente encontrado!");
+                System.out.println("\nInformações do Cliente: " + clientes.getNomeCliente());
+                System.out.println("\n------------------------");
+                System.out.println("Nome: " + clientes.getNomeCliente().toUpperCase());
+                System.out.println("CPF: " + clientes.getCpfCliente());
+                System.out.println("Nº de conta: " + clientes.getNumConta());
+                System.out.println("Saldo sem o valor da transferência: " + clientes.getSaldoConta());
+                System.out.println("------------------------");
+
+            
+
+            double novoSaldoConta2 = clientes.getValorTransferencia() + clientes.getSaldoConta();
+            
+            System.out.println("VALOR TRANSFERENCIA: " + clientes.getValorTransferencia());
+
+            System.out.println("Novo saldo da conta : " + novoSaldoConta2 + " R$");
+            }   
+        }
+    }
+
     public void listarSaldoCliente() {
 
-        String numConta = Console.scanString("Informe o Nº de conta do cliente: ");
+        String numConta = Console.scanString("\nInforme o Nº de conta do cliente: ");
         for (Clientes clientes : RepositorioClientes.getInstance().getClientes()) {
             if (clientes.getNumConta().equalsIgnoreCase(numConta)) {
                 System.out.println("\n------------------------");

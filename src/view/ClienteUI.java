@@ -55,9 +55,10 @@ public class ClienteUI {
             String email = Console.scanString("Informe o endereço de e-mail do cliente: ");
             String numConta = Console.scanString(nome.toUpperCase() + ", Informe o número da sua conta para cadastrar: ");
             double saldoConta = Console.scanDouble(nome.toUpperCase() + ", Informe o saldo da sua conta: ");
+            double valorTransferencia = 0;
 
             try {
-                RepositorioClientes.getInstance().add(new Clientes(nome, cpf, email, numConta, saldoConta));
+                RepositorioClientes.getInstance().add(new Clientes(nome, cpf, email, numConta, saldoConta, valorTransferencia));
 
             } catch (Exception e) {
 
