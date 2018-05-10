@@ -161,7 +161,6 @@ public class OperacaoMonetizacaoUI {
             clientes.setSaldoConta(novoSaldoConta2);
             System.out.println("\n------------------------");
             System.out.println("Valor da transferência: " + clientes.getValorTransferencia());
-
             System.out.println("Novo saldo da conta : " + novoSaldoConta2 + " R$");
             System.out.println("------------------------");
             } else { // Caso não encontre a segunda conta, ele informa para o usuário e passa o valor da transferência de volta pra conta inicial

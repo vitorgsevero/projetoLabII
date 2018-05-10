@@ -154,7 +154,8 @@ public class ProdutoUI {
                             
                             System.out.println("Parabéns, você comprou o(a) " + produtos.getNomeProduto() + "!");
                             System.out.println("Total da Venda: " + totalVenda);
-                            System.out.println("Seu saldo anterior: " + clientes.getSaldoConta());      
+                            System.out.println("Seu saldo anterior: " + clientes.getSaldoConta()); 
+                            
                             double novoSaldoConta = clientes.getSaldoConta() - produtos.getPrecoProduto();
                             clientes.setSaldoConta(novoSaldoConta);
                             System.out.println("Novo saldo: " + clientes.getSaldoConta());
