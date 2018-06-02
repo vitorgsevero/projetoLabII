@@ -19,10 +19,10 @@ public class ConnectionFactory {
             conexao = DriverManager.getConnection(URL, USUARIO, SENHA);
             
         } catch (ClassNotFoundException ex) {
-            System.err.println("Erro de Sistema - Classe do Driver Nao Encontrada!");
+            System.err.println("Erro: Classe do Driver Nao Encontrada!");
             throw new BDException(ex);
         } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema na conexão do banco de dados");
+            System.err.println("Erro: Problema na conexão do banco de dados");
             throw new BDException(ex);
         }
         return(conexao);
