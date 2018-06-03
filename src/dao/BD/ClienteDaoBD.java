@@ -50,17 +50,25 @@ public class ClienteDaoBD implements ClienteDAO{
     public void cadastrarClientes(Clientes cliente) {
                int id = 0;
         try {
-            String sql = "INSERT INTO cliente (cpf, nome, datanascimento) "
-                    + "VALUES (?,?,?)";
+            String sql = "INSERT INTO cliente (nome, cpf, email, numconta, datanascimento) " 
+                    + "VALUES (?,?,?,?,?)";
 
             //Foi criado um novo método conectar para obter o id
             conectarObtendoId(sql);
-            comando.setString(1, cliente.getCpfCliente());
-            comando.setString(2, cliente.getNomeCliente());
+            
+            comando.setString(1, cliente.getNomeCliente());
+            comando.setString(2, cliente.getCpfCliente());
+            comando.setString(3, cliente.getEmailCliente());
+            comando.setString(4, cliente.getNumConta());
+            //comando.setDouble(5, cliente.getSaldoConta());
+            
+            
             //Trabalhando com data: convertendo LocalDate -> Date
-            Date dataSql = Date.valueOf(cliente.getDataNascimento());
-            comando.setDate(3, dataSql);
+            Date dataNascimento = Date.valueOf(cliente.getDataNascimento());
+            comando.setDate(5, dataNascimento);
+            
             comando.executeUpdate();
+            
             //Obtém o resultSet para pegar o id
             ResultSet resultado = comando.getGeneratedKeys();
             if (resultado.next()) {
@@ -74,7 +82,7 @@ public class ClienteDaoBD implements ClienteDAO{
             }
 
         } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao salvar paciente no Banco de Dados!");
+            System.err.println("Erro: Problema ao salvar paciente no Banco de Dados!");
             throw new BDException(ex);
         } finally {
             encerrarConexao();

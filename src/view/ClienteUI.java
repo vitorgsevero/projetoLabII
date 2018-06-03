@@ -10,13 +10,17 @@ import util.DateUtil;
 
 public class ClienteUI {
     
-  private ClienteDAO clienteDao;
+  private ClienteDaoBD clienteDao;
+  
+ public ClienteUI() {
+        clienteDao = new ClienteDaoBD();
+    }
 
     public void menuCliente() {
         int op = 0;
         do {
 
-            try {
+          //  try {
                 op = Console.scanInt("\nBem-vindo ao Menu de Cliente! Informe uma opção: \n1) Cadastrar clientes \n2) Listar clientes \n3) Buscar Clientes \n0) Voltar para o menu anterior ");
 
                 switch (op) {
@@ -41,9 +45,9 @@ public class ClienteUI {
                         System.out.println("Opção inválida!");
                 }
 
-            } catch (Exception e) {
-                System.out.println("Não foi possível acessar as opções do Menu de Clientes! Por favor, informe uma opção válida.");
-            }
+           // } catch (Exception e) {
+           /*     System.out.println("Não foi possível acessar as opções do Menu de Clientes! Por favor, informe uma opção válida.");*/
+           // }
 
         } while (op != 0);
 
@@ -53,41 +57,43 @@ public class ClienteUI {
 
         System.out.println("\nCadastrando Clientes...");
 
-        String cpf = Console.scanString("Informe o CPF do cliente: ");
+        
 
-        if (RepositorioClientes.getInstance().clienteIgual(cpf)) {
-            System.out.println("CPF já cadastrado, informe outro CPF.");
-        } else {
+       /* if (RepositorioClientes.getInstance().clienteIgual(cpf)) {*/
+            //System.out.println("CPF já cadastrado, informe outro CPF.");
+        /*} else {*/
 
             String nome = Console.scanString("Informe o nome do cliente: ");
+            String cpf = Console.scanString("Informe o CPF do cliente: ");
             String email = Console.scanString("Informe o endereço de e-mail do cliente: ");
             String numConta = Console.scanString(nome.toUpperCase() + ", Informe o número da sua conta para cadastrar: ");
-            String dataNasc = Console.scanString("Informe a sua data de nascimento: ");
+           // double saldoConta = Console.scanDouble(nome.toUpperCase() + ", Informe o saldo da sua conta: ");
+            String dataString = Console.scanString("Informe a sua data de nascimento: ");
 
-            if (RepositorioClientes.getInstance().contaIgual(numConta)) {
+           /* if (RepositorioClientes.getInstance().contaIgual(numConta)) {*/
                 
-                System.out.println("Conta já cadastrada, informe outro número de conta.");
+                //System.out.println("Conta já cadastrada, informe outro número de conta.");
                 
-            } else {
+            /*} else {*/
                 
-                double saldoConta = Console.scanDouble(nome.toUpperCase() + ", Informe o saldo da sua conta: ");
-                double valorTransferencia = 0;
+                
+             
 
-                try {
+               /* try {*/
 
-                    clienteDao.cadastrarClientes(new Clientes(nome, cpf, email, numConta, saldoConta, DateUtil.stringToDate(dataNasc)));
+                    clienteDao.cadastrarClientes(new Clientes(nome, cpf, email, numConta,  DateUtil.stringToDate(dataString))); 
                     
                     //RepositorioClientes.getInstance().add(new Clientes(nome, cpf, email, numConta, saldoConta));
 
-                } catch (Exception e) {
+                /*} catch (Exception e) {*/
 
-                    System.out.println("Não foi possível cadastrar o cliente, algum valor inválido foi informado.");
+                    //System.out.println("Não foi possível cadastrar o cliente, algum valor inválido foi informado.");
 
-                }
+               // }
 
-            }
+            //}
 
-        }
+        //}
     }
 
     public void listarClientes() {

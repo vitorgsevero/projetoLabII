@@ -19,7 +19,7 @@ public class Menu {
 
         do {
 
-          try {
+          /*try {*/
                 op = Console.scanInt("\nBem-vindo ao Menu Principal! Informe uma opção: \n1) Clientes \n2) Produtos \n3) Operações de Monetização \n0) Sair do programa ");
 
                 switch (op) {
@@ -44,10 +44,10 @@ public class Menu {
                         System.out.println("Opção inválida!");
                 }
 
-            } catch (Exception e) {
+           /* } catch (Exception e) {
                 System.out.println("Não foi possível acessar as opções do Menu! Por favor, informe uma opção válida.");
                 System.out.println("Erro: " + e.getMessage());
-            }
+            }*/
 
         } while (0 != op);
 
