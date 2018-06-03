@@ -3,17 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/User/workspace/Monetizacao/src/model/Produtos.java</file>
-            <file>file:/C:/Users/User/workspace/Monetizacao/src/model/OperacaoMonetizacao.java</file>
-            <file>file:/C:/Users/User/workspace/Monetizacao/src/model/Menu.java</file>
             <file>file:/C:/Users/User/workspace/Monetizacao/src/view/ClienteUI.java</file>
+            <file>file:/C:/Users/User/workspace/Monetizacao/src/model/Menu.java</file>
             <file>file:/C:/Users/User/workspace/Monetizacao/src/model/Clientes.java</file>
-            <file>file:/C:/Users/User/workspace/Monetizacao/src/repositorio/RepositorioOperacaoMonetizacao.java</file>
-            <file>file:/C:/Users/User/workspace/Monetizacao/src/model/Principal.java</file>
             <file>file:/C:/Users/User/workspace/Monetizacao/src/view/ProdutoUI.java</file>
-            <file>file:/C:/Users/User/workspace/Monetizacao/src/repositorio/RepositorioProdutos.java</file>
-            <file>file:/C:/Users/User/workspace/Monetizacao/src/repositorio/RepositorioClientes.java</file>
+            <file>file:/C:/Users/User/workspace/Monetizacao/src/dao/BD/ClienteDaoBD.java</file>
+            <file>file:/C:/Users/User/workspace/Monetizacao/src/dao/BD/ConnectionFactory.java</file>
             <file>file:/C:/Users/User/workspace/Monetizacao/src/view/OperacaoMonetizacaoUI.java</file>
+            <file>file:/C:/Users/User/workspace/Monetizacao/src/dao/BD/BDException.java</file>
+            <file>file:/C:/Users/User/workspace/Monetizacao/src/dao/ClienteDAO.java</file>
         </group>
     </open-files>
 </project-private>

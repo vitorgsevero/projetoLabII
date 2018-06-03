@@ -13,29 +13,28 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
 
+public class ClienteDaoBD implements ClienteDAO {
 
-public class ClienteDaoBD implements ClienteDAO{
-    
     private Connection conexao;
     private PreparedStatement comando;
-    
-     public Connection conectar(String sql) throws SQLException {
+
+    public Connection conectar(String sql) throws SQLException {
         conexao = ConnectionFactory.getConnection();
         comando = conexao.prepareStatement(sql);
         return conexao;
     }
-     
+
     public void conectarObtendoId(String sql) throws SQLException {
         conexao = ConnectionFactory.getConnection();
         comando = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-    } 
-    
+    }
+
     public void encerrarConexao() {
         try {
-            if (comando!=null) {
+            if (comando != null) {
                 comando.close();
             }
-            if (conexao!=null) {
+            if (conexao != null) {
                 conexao.close();
             }
         } catch (SQLException ex) {
@@ -44,39 +43,39 @@ public class ClienteDaoBD implements ClienteDAO{
 
         }
 
-    }  
-    
+    }
+
     @Override
     public void cadastrarClientes(Clientes cliente) {
-               int id = 0;
+
+        int id = 0;
+
         try {
-            String sql = "INSERT INTO cliente (nome, cpf, email, numconta, datanascimento) " 
+            String sql = "INSERT INTO cliente (nome, cpf, email, numconta, datanascimento) "
                     + "VALUES (?,?,?,?,?)";
 
             //Foi criado um novo método conectar para obter o id
             conectarObtendoId(sql);
-            
+
             comando.setString(1, cliente.getNomeCliente());
             comando.setString(2, cliente.getCpfCliente());
             comando.setString(3, cliente.getEmailCliente());
             comando.setString(4, cliente.getNumConta());
             //comando.setDouble(5, cliente.getSaldoConta());
-            
-            
+
             //Trabalhando com data: convertendo LocalDate -> Date
             Date dataNascimento = Date.valueOf(cliente.getDataNascimento());
             comando.setDate(5, dataNascimento);
-            
+
             comando.executeUpdate();
-            
+
             //Obtém o resultSet para pegar o id
             ResultSet resultado = comando.getGeneratedKeys();
             if (resultado.next()) {
                 //seta o id para o objeto
                 id = resultado.getInt(1);
                 cliente.setId(id);
-            }
-            else{
+            } else {
                 System.err.println("Erro: Não foi possível gerar o ID!");
                 throw new BDException("O ID não foi gerado!");
             }
@@ -92,17 +91,80 @@ public class ClienteDaoBD implements ClienteDAO{
 
     @Override
     public void removerClientes(Clientes cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+
+            String sql = "DELETE FROM cliente WHERE cpf = ?";
+
+            this.conectar(sql);
+            this.comando.setString(1, cliente.getCpfCliente());
+            this.comando.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.err.println("Erro: Problema ao deletar paciente no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            encerrarConexao();
+        }
+
     }
 
     @Override
     public void atualizarDados(Clientes cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "UPDATE cliente SET cpf=?, nome=?, datanascimento=? "
+                    + "WHERE cpf=?";
+
+            conectar(sql);
+            comando.setString(1, cliente.getCpfCliente());
+            comando.setString(2, cliente.getNomeCliente());
+            //Trabalhando com data: convertendo LocalDate -> Date
+            Date dataSql = Date.valueOf(cliente.getDataNascimento());
+            comando.setDate(3, dataSql);
+            comando.setString(4, cliente.getCpfCliente());
+            
+            comando.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.err.println("Erro: Problema ao atualizar paciente no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            encerrarConexao();
+        }
     }
 
     @Override
     public List<Clientes> listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Clientes> listaClientes = new ArrayList<>();
+
+        String sql = "SELECT * FROM cliente";
+
+        try {
+            conectar(sql);
+
+            ResultSet resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                int id = resultado.getInt("id");
+                String nomeCliente = resultado.getString("nome");
+                String cpfCliente = resultado.getString("cpf");
+                //Trabalhando com data: convertendo dataSql -> LocalDate
+                Date dataSql = resultado.getDate("datanascimento");
+                LocalDate dataNascimento = dataSql.toLocalDate();
+
+                Clientes clientes = new Clientes(id, nomeCliente, cpfCliente, dataNascimento);
+
+                listaClientes.add(clientes);
+
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao buscar os pacientes do Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            encerrarConexao();
+        }
+
+        return (listaClientes);
     }
 
     @Override
@@ -111,13 +173,44 @@ public class ClienteDaoBD implements ClienteDAO{
     }
 
     @Override
-    public Clientes procurarPorRg(String rg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Clientes procurarPorCpf(String cpfCliente) {
+
+        String sql = "SELECT * FROM cliente WHERE cpf = ?";
+
+        try {
+
+            conectar(sql);
+            comando.setString(1, cpfCliente);
+
+            ResultSet resultado = comando.executeQuery();
+
+            if (resultado.next()) {
+                int id = resultado.getInt("id");
+                String nomeCliente = resultado.getString("nome");
+                //Trabalhando com data: convertendo dataSql -> LocalDate
+                Date dataSql = resultado.getDate("datanascimento");
+                LocalDate dataNascimento = dataSql.toLocalDate();
+
+                Clientes clientes = new Clientes(nomeCliente, cpfCliente, dataNascimento);
+                // new Clientes(nome, cpf, email, numConta,  DateUtil.stringToDate(dataString)
+
+                return clientes;
+
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Erro: Problema ao buscar o paciente pelo rg do Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            encerrarConexao();
+        }
+
+        return (null);
     }
 
     @Override
     public List<Clientes> listarPorNome(String nome) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

@@ -2,6 +2,7 @@ package view;
 
 import dao.BD.ClienteDaoBD;
 import dao.ClienteDAO;
+import java.util.List;
 import model.Clientes;
 import repositorio.RepositorioClientes;
 import util.Console;
@@ -21,7 +22,7 @@ public class ClienteUI {
         do {
 
           //  try {
-                op = Console.scanInt("\nBem-vindo ao Menu de Cliente! Informe uma opção: \n1) Cadastrar clientes \n2) Listar clientes \n3) Buscar Clientes \n0) Voltar para o menu anterior ");
+                op = Console.scanInt("\nBem-vindo ao Menu de Cliente! Informe uma opção: \n1) Cadastrar clientes \n2) Listar clientes \n3) Buscar clientes \n4) Remover clientes \n5) Atualizar dados \n0) Voltar para o menu anterior ");
 
                 switch (op) {
 
@@ -30,13 +31,21 @@ public class ClienteUI {
                         break;
 
                     case 2:
-                        this.listarClientes();
+                        this.mostrarClientes();
                         break;
 
                     case 3:
                         this.buscarClientes();
                         break;
-
+                        
+                    case 4:
+                        this.removerClientes();
+                        break;
+                     
+                    case 5:
+                        this.atualizar();
+                        
+                        
                     case 0:
                         System.out.println("\nVoltando para o menu principal...");
                         break;
@@ -95,8 +104,47 @@ public class ClienteUI {
 
         //}
     }
+    
+    public void mostrarClientes() {
+        List<Clientes> listaClientes = clienteDao.listar();
+        this.mostrarClientes();
+    }
+    
+    public void removerClientes(){
+       
+        String cpfCliente = Console.scanString("Informe o CPF para encontrar o cliente que deseja remover: ");
+        
+        Clientes clientes = clienteDao.procurarPorCpf(cpfCliente);
 
-    public void listarClientes() {
+        this.mostrarClientes();
+    }
+    
+    public void atualizar(){
+        
+       String cpfCliente = Console.scanString("CPF do cliente a ser alterado: ");
+
+        Clientes clientes = clienteDao.procurarPorCpf(cpfCliente);
+
+        System.out.println("Digite os dados do paciente que quer alterar [Vazio caso nao queira]");
+        
+        String nomeCliente = Console.scanString("Nome: ");
+        String dataString = Console.scanString("Data de Nascimento: ");
+        if (!nomeCliente.isEmpty()) {
+            clientes.setNomeCliente(nomeCliente);
+        }
+        if (!dataString.isEmpty()) {
+            clientes.setDataNascimento(DateUtil.stringToDate(dataString));
+        }
+
+        clienteDao.atualizarDados(clientes);
+        System.out.println("Paciente " + nomeCliente + " atualizado com sucesso!");
+    }
+    
+    
+    
+    
+
+    /*public void listarClientes() {
 
         if (RepositorioClientes.getInstance().estaVazio()) {
             System.out.println("\nNenhum cliente cadastrado...");
@@ -114,7 +162,7 @@ public class ClienteUI {
             }
         }
 
-    }
+    }*/
 
     public void buscarClientes() {
 
@@ -123,5 +171,9 @@ public class ClienteUI {
         RepositorioClientes.getInstance().buscarClientes(cpf);
 
     }
+
+
+
+
 
 }

@@ -11,7 +11,7 @@ public interface ClienteDAO {
     public List<Clientes> listar();
     public Clientes procurarPorId(int id);
     //Adicionado
-    public Clientes procurarPorRg(String rg);
+    public Clientes procurarPorCpf(String cpfCliente);
     public List<Clientes> listarPorNome(String nome);
     
 }

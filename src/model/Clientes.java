@@ -26,6 +26,19 @@ public class Clientes {
        // this.valorTransferencia = valorTransferencia;
     }
 
+    public Clientes(String nomeCliente, String cpfCliente, LocalDate dataNascimento) { //Construtor para buscar por CPF
+       this.nomeCliente = nomeCliente;
+       this.cpfCliente = cpfCliente;
+       this.dataNascimento = dataNascimento;
+    }
+
+    public Clientes(int id, String nomeCliente, String cpfCliente, LocalDate dataNascimento) {
+       this.idCliente = id;
+       this.nomeCliente = nomeCliente;
+       this.cpfCliente = cpfCliente;
+       this.dataNascimento = dataNascimento;
+    }
+
     public String getCpfCliente() {
         return cpfCliente;
     }
@@ -83,5 +96,18 @@ public class Clientes {
     public void setId(int id) {
         this.idCliente = id;
     }
+    
+    public int getId(){
+        return this.idCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+    public void setDataNascimento(LocalDate stringToDate) {
+      this.dataNascimento = stringToDate;
+    }
+
 
 }
