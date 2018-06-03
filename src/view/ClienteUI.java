@@ -1,11 +1,16 @@
 package view;
 
+import dao.BD.ClienteDaoBD;
+import dao.ClienteDAO;
 import model.Clientes;
 import repositorio.RepositorioClientes;
 import util.Console;
+import util.DateUtil;
 
 
 public class ClienteUI {
+    
+  private ClienteDAO clienteDao;
 
     public void menuCliente() {
         int op = 0;
@@ -57,6 +62,7 @@ public class ClienteUI {
             String nome = Console.scanString("Informe o nome do cliente: ");
             String email = Console.scanString("Informe o endereço de e-mail do cliente: ");
             String numConta = Console.scanString(nome.toUpperCase() + ", Informe o número da sua conta para cadastrar: ");
+            String dataNasc = Console.scanString("Informe a sua data de nascimento: ");
 
             if (RepositorioClientes.getInstance().contaIgual(numConta)) {
                 
@@ -69,7 +75,9 @@ public class ClienteUI {
 
                 try {
 
-                    RepositorioClientes.getInstance().add(new Clientes(nome, cpf, email, numConta, saldoConta, valorTransferencia));
+                    clienteDao.cadastrarClientes(new Clientes(nome, cpf, email, numConta, saldoConta, DateUtil.stringToDate(dataNasc)));
+                    
+                    //RepositorioClientes.getInstance().add(new Clientes(nome, cpf, email, numConta, saldoConta));
 
                 } catch (Exception e) {
 

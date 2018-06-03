@@ -1,6 +1,7 @@
 package model;
 
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Clientes {
@@ -8,18 +9,21 @@ public class Clientes {
     private String cpfCliente;
     private String nomeCliente;
     private String emailCliente;
+    private LocalDate dataNascimento;
     private String numConta;
     private double saldoConta = 0;
     private double valorTransferencia = 0;
+    private int idCliente=0;
 
 
-    public Clientes(String nomeCliente, String cpfCliente, String emailCliente, String numConta, double saldoConta, double valorTransferencia) {
+    public Clientes(String nomeCliente, String cpfCliente, String emailCliente, String numConta, double saldoConta, LocalDate dataNascimento) {
         this.nomeCliente = nomeCliente;
         this.cpfCliente = cpfCliente;
         this.emailCliente = emailCliente;
         this.numConta = numConta;
         this.saldoConta = saldoConta;
-        this.valorTransferencia = valorTransferencia;
+        this.dataNascimento = dataNascimento;
+       // this.valorTransferencia = valorTransferencia;
     }
 
     public String getCpfCliente() {
@@ -56,7 +60,7 @@ public class Clientes {
     public double getSaldoConta() {
         return saldoConta;
     }
-
+    
     /**
      Criação do setSaldoConta para alterar o valor do saldo quando um depósito ou uma transferência é feita
      */
@@ -70,6 +74,14 @@ public class Clientes {
 
     public void setValorTransferencia(double valorTransferencia) {
         this.valorTransferencia = valorTransferencia;
+    }
+
+    public LocalDate getDataNascimento() {
+       return dataNascimento;
+    }
+
+    public void setId(int id) {
+        this.idCliente = id;
     }
 
 }
