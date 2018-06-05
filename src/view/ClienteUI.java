@@ -107,7 +107,7 @@ public class ClienteUI {
     
     public void mostrarClientes() {
         List<Clientes> listaClientes = clienteDao.listar();
-        this.mostrarClientes();
+        mostrarClientes();
     }
     
     public void removerClientes(){
@@ -115,8 +115,14 @@ public class ClienteUI {
         String cpfCliente = Console.scanString("Informe o CPF para encontrar o cliente que deseja remover: ");
         
         Clientes clientes = clienteDao.procurarPorCpf(cpfCliente);
-
-        this.mostrarClientes();
+        
+        if (UIUtil.getConfirmacao("Você tem certeza que deseja excluir o cliente?")) {
+            clienteDao.removerClientes(clientes);
+            System.out.println("Cliente excluído com sucesso!");
+        } else {
+            System.out.println("Operação cancelada!");
+        }
+        
     }
     
     public void atualizar(){
@@ -125,19 +131,21 @@ public class ClienteUI {
 
         Clientes clientes = clienteDao.procurarPorCpf(cpfCliente);
 
-        System.out.println("Digite os dados do paciente que quer alterar [Vazio caso nao queira]");
+        System.out.println("Informe os dados que deseja alterar, caso não queira, deixe em branco.");
         
         String nomeCliente = Console.scanString("Nome: ");
         String dataString = Console.scanString("Data de Nascimento: ");
-        if (!nomeCliente.isEmpty()) {
+        
+        if (!nomeCliente.isEmpty()) { // Se o nome não estiver em branco, o nome é atualizado
             clientes.setNomeCliente(nomeCliente);
         }
-        if (!dataString.isEmpty()) {
+        if (!dataString.isEmpty()) { // Se a data de nascimento não estiver em branco, o data é atualizada
             clientes.setDataNascimento(DateUtil.stringToDate(dataString));
         }
 
         clienteDao.atualizarDados(clientes);
-        System.out.println("Paciente " + nomeCliente + " atualizado com sucesso!");
+        System.out.println("Dados atualizados com sucesso!");
+ 
     }
     
     

@@ -96,6 +96,7 @@ public class ClienteDaoBD implements ClienteDAO {
             String sql = "DELETE FROM cliente WHERE cpf = ?";
 
             this.conectar(sql);
+            
             this.comando.setString(1, cliente.getCpfCliente());
             this.comando.executeUpdate();
 
