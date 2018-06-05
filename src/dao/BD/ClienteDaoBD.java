@@ -210,8 +210,40 @@ public class ClienteDaoBD implements ClienteDAO {
     }
 
     @Override
-    public List<Clientes> listarPorNome(String nome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Clientes> listarPorNome(String nomeCliente) {
+        
+        List<Clientes> listaClientes = new ArrayList<>();
+        
+        String sql = "SELECT * FROM cliente WHERE nome LIKE ?";
+
+        try {
+            conectar(sql);
+            comando.setString(1, "%" + nomeCliente + "%");
+            ResultSet resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                int id = resultado.getInt("id");
+                String nome = resultado.getString("nome");
+                String cpfCliente = resultado.getString("cpf");
+            
+                //Trabalhando com data: convertendo dataSql -> LocalDate
+                Date dataSql = resultado.getDate("datanascimento");
+                LocalDate dataNascimento = dataSql.toLocalDate();
+
+                Clientes clientes = new Clientes(id, nome, cpfCliente, dataNascimento);
+
+                listaClientes.add(clientes);
+
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Erro: Problema ao buscar os pacientes pelo nome do Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            encerrarConexao();
+        }
+        return (listaClientes);
+   
     }
 
 }

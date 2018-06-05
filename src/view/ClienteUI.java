@@ -8,12 +8,11 @@ import repositorio.RepositorioClientes;
 import util.Console;
 import util.DateUtil;
 
-
 public class ClienteUI {
-    
-  private ClienteDaoBD clienteDao;
-  
- public ClienteUI() {
+
+    private ClienteDaoBD clienteDao;
+
+    public ClienteUI() {
         clienteDao = new ClienteDaoBD();
     }
 
@@ -21,8 +20,8 @@ public class ClienteUI {
         int op = 0;
         do {
 
-          //  try {
-                op = Console.scanInt("\nBem-vindo ao Menu de Cliente! Informe uma opção: \n1) Cadastrar clientes \n2) Mostrar clientes \n3) Buscar clientes \n4) Remover clientes \n5) Atualizar dados \n0) Voltar para o menu anterior ");
+            try {
+                op = Console.scanInt("\nBem-vindo ao Menu de Cliente! Informe uma opção: \n1) Cadastrar clientes \n2) Mostrar todos clientes \n3) Buscar clientes por nome \n4) Remover clientes \n5) Atualizar dados \n0) Voltar para o menu anterior ");
 
                 switch (op) {
 
@@ -35,17 +34,16 @@ public class ClienteUI {
                         break;
 
                     case 3:
-                        this.buscarClientes();
+                        this.consultarClientesPorNome();
                         break;
-                        
+
                     case 4:
                         this.removerClientes();
                         break;
-                     
+
                     case 5:
                         this.atualizar();
-                        
-                        
+
                     case 0:
                         System.out.println("\nVoltando para o menu principal...");
                         break;
@@ -54,10 +52,9 @@ public class ClienteUI {
                         System.out.println("Opção inválida!");
                 }
 
-           // } catch (Exception e) {
-           /*     System.out.println("Não foi possível acessar as opções do Menu de Clientes! Por favor, informe uma opção válida.");*/
-           // }
-
+            } catch (Exception e) {
+                System.out.println("Não foi possível acessar as opções do Menu de Clientes! Por favor, informe uma opção válida.");  
+            }
         } while (op != 0);
 
     }
@@ -66,76 +63,48 @@ public class ClienteUI {
 
         System.out.println("\nCadastrando Clientes...");
 
-        
+        String nome = Console.scanString("Informe o nome do cliente: ");
+        String cpf = Console.scanString("Informe o CPF do cliente: ");
+        String email = Console.scanString("Informe o endereço de e-mail do cliente: ");
+        String numConta = Console.scanString(nome.toUpperCase() + ", Informe o número da sua conta para cadastrar: ");
+        // double saldoConta = Console.scanDouble(nome.toUpperCase() + ", Informe o saldo da sua conta: ");
+        String dataString = Console.scanString("Informe a sua data de nascimento: ");
 
-       /* if (RepositorioClientes.getInstance().clienteIgual(cpf)) {*/
-            //System.out.println("CPF já cadastrado, informe outro CPF.");
-        /*} else {*/
+        clienteDao.cadastrarClientes(new Clientes(nome, cpf, email, numConta, DateUtil.stringToDate(dataString)));
 
-            String nome = Console.scanString("Informe o nome do cliente: ");
-            String cpf = Console.scanString("Informe o CPF do cliente: ");
-            String email = Console.scanString("Informe o endereço de e-mail do cliente: ");
-            String numConta = Console.scanString(nome.toUpperCase() + ", Informe o número da sua conta para cadastrar: ");
-           // double saldoConta = Console.scanDouble(nome.toUpperCase() + ", Informe o saldo da sua conta: ");
-            String dataString = Console.scanString("Informe a sua data de nascimento: ");
-
-           /* if (RepositorioClientes.getInstance().contaIgual(numConta)) {*/
-                
-                //System.out.println("Conta já cadastrada, informe outro número de conta.");
-                
-            /*} else {*/
-                
-                
-             
-
-               /* try {*/
-
-                    clienteDao.cadastrarClientes(new Clientes(nome, cpf, email, numConta,  DateUtil.stringToDate(dataString))); 
-                    
-                    //RepositorioClientes.getInstance().add(new Clientes(nome, cpf, email, numConta, saldoConta));
-
-                /*} catch (Exception e) {*/
-
-                    //System.out.println("Não foi possível cadastrar o cliente, algum valor inválido foi informado.");
-
-               // }
-
-            //}
-
-        //}
     }
-    
+
     public void mostrarClientes() {
         List<Clientes> listaClientes = clienteDao.listar();
         mostrarClientes(listaClientes);
     }
-    
-    public void removerClientes(){
-       
+
+    public void removerClientes() {
+
         String cpfCliente = Console.scanString("Informe o CPF para encontrar o cliente que deseja remover: ");
-        
+
         Clientes clientes = clienteDao.procurarPorCpf(cpfCliente);
-        
+
         if (UIUtil.getConfirmacao("Você tem certeza que deseja excluir o cliente?")) {
             clienteDao.removerClientes(clientes);
             System.out.println("Cliente excluído com sucesso!");
         } else {
             System.out.println("Operação cancelada!");
         }
-        
+
     }
-    
-    public void atualizar(){
-        
-       String cpfCliente = Console.scanString("CPF do cliente a ser alterado: ");
+
+    public void atualizar() {
+
+        String cpfCliente = Console.scanString("CPF do cliente a ser alterado: ");
 
         Clientes clientes = clienteDao.procurarPorCpf(cpfCliente);
 
         System.out.println("Informe os dados que deseja alterar, caso não queira, deixe em branco.");
-        
+
         String nomeCliente = Console.scanString("Nome: ");
         String dataString = Console.scanString("Data de Nascimento: ");
-        
+
         if (!nomeCliente.isEmpty()) { // Se o nome não estiver em branco, o nome é atualizado
             clientes.setNomeCliente(nomeCliente);
         }
@@ -145,21 +114,18 @@ public class ClienteUI {
 
         clienteDao.atualizarDados(clientes);
         System.out.println("Dados atualizados com sucesso!");
- 
-    }
-    
-    
-
-    public void buscarClientes() {
-
-        System.out.println("\nBUSCANDO CLIENTE: ");
-        String cpf = Console.scanString("Informe o CPF do cliente: ");
-        RepositorioClientes.getInstance().buscarClientes(cpf);
 
     }
 
-    
-        private void mostrarClientes(List<Clientes> listaClientes) {
+     private void consultarClientesPorNome() {
+        String nomeCliente = Console.scanString("Informe o nome do cliente que deseja buscar: ");
+        List<Clientes> listaClientes = clienteDao.listarPorNome(nomeCliente);
+        this.mostrarClientes(listaClientes);
+
+    }
+
+
+    private void mostrarClientes(List<Clientes> listaClientes) {
         if (listaClientes.isEmpty()) {
             System.out.println("Nenhum cliente encontrado!");
         } else {
@@ -174,7 +140,5 @@ public class ClienteUI {
             }
         }
     }
-
-
 
 }
