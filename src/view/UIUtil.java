@@ -4,17 +4,17 @@ import util.Console;
 
 public class UIUtil {
 
-    public static final String SIM = "SIM";
-    public static final String NAO = "NAO";
+    public static final String SIM = "sim";
+    public static final String NAO = "nao";
     
     public static void mostrarErro(Object msgErro) {
         System.err.println(msgErro);
     }
     
     public static boolean getConfirmacao(Object msg) {
-        String confirmacao = "NAO";
+        String confirmacao = "nao";
         do {
-            confirmacao = Console.scanString(msg+"(SIM/NAO)");
+            confirmacao = Console.scanString(msg+"(Informe SIM ou NAO): ");
             if (confirmacao.equalsIgnoreCase(SIM)) {
                 return true;
             }

@@ -22,7 +22,7 @@ public class ClienteUI {
         do {
 
           //  try {
-                op = Console.scanInt("\nBem-vindo ao Menu de Cliente! Informe uma opção: \n1) Cadastrar clientes \n2) Listar clientes \n3) Buscar clientes \n4) Remover clientes \n5) Atualizar dados \n0) Voltar para o menu anterior ");
+                op = Console.scanInt("\nBem-vindo ao Menu de Cliente! Informe uma opção: \n1) Cadastrar clientes \n2) Mostrar clientes \n3) Buscar clientes \n4) Remover clientes \n5) Atualizar dados \n0) Voltar para o menu anterior ");
 
                 switch (op) {
 
@@ -107,7 +107,7 @@ public class ClienteUI {
     
     public void mostrarClientes() {
         List<Clientes> listaClientes = clienteDao.listar();
-        mostrarClientes();
+        mostrarClientes(listaClientes);
     }
     
     public void removerClientes(){
@@ -149,28 +149,6 @@ public class ClienteUI {
     }
     
     
-    
-    
-
-    /*public void listarClientes() {
-
-        if (RepositorioClientes.getInstance().estaVazio()) {
-            System.out.println("\nNenhum cliente cadastrado...");
-        } else {
-            System.out.println("\nClientes cadastrados: ");
-            for (Clientes clientes : RepositorioClientes.getInstance().getClientes()) {
-                System.out.println("\n------------------------");
-                System.out.println("Nome: " + clientes.getNomeCliente().toUpperCase());
-                System.out.println("CPF: " + clientes.getCpfCliente());
-                System.out.println("E-mail: " + clientes.getEmailCliente().toLowerCase());
-                System.out.println("Nº de conta: " + clientes.getNumConta());
-                System.out.println("Saldo: " + clientes.getSaldoConta() + " R$");
-                System.out.println("------------------------");
-
-            }
-        }
-
-    }*/
 
     public void buscarClientes() {
 
@@ -180,7 +158,22 @@ public class ClienteUI {
 
     }
 
-
+    
+        private void mostrarClientes(List<Clientes> listaClientes) {
+        if (listaClientes.isEmpty()) {
+            System.out.println("Nenhum cliente encontrado!");
+        } else {
+            System.out.println("-----------------------------\n");
+            System.out.println(String.format("%-10s", "CPF") + "\t"
+                    + String.format("%-20s", "|NOME") + "\t"
+                    + String.format("%-20s", "|DATA DE NASCIMENTO"));
+            for (Clientes clientes : listaClientes) {
+                System.out.println(String.format("%-10s", clientes.getCpfCliente()) + "\t"
+                        + String.format("%-20s", "|" + clientes.getNomeCliente()) + "\t"
+                        + String.format("%-20s", "|" + DateUtil.dateToString(clientes.getDataNascimento())));
+            }
+        }
+    }
 
 
 
