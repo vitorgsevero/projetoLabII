@@ -103,16 +103,16 @@ public class ProdutoDaoBD implements ProdutoDAO {
     @Override
     public void atualizarDados(Produtos produto) {
         try {
-            String sql = "UPDATE produto SET cod_produto=?, nome_produto=?, preco_produto=? "
+            String sql = "UPDATE produto SET nome_produto=?, preco_produto=? "
                     + "WHERE cod_produto=?";
 
             conectar(sql);
-            comando.setString(1, produto.getCodProduto());
-            comando.setString(2, produto.getNomeProduto());
-            comando.setDouble(3, produto.getPrecoProduto());
 
-            comando.setString(4, produto.getCodProduto());
-            
+            comando.setString(1, produto.getNomeProduto());
+            comando.setDouble(2, produto.getPrecoProduto());
+
+            comando.setString(3, produto.getCodProduto());
+
             comando.executeUpdate();
 
         } catch (SQLException ex) {
@@ -201,8 +201,37 @@ public class ProdutoDaoBD implements ProdutoDAO {
     }
 
     @Override
-    public List<Produtos> listarPorMaiorPreco(double precoProduto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Produtos> listarPorMaiorPreco() {
+        List<Produtos> listaProdutos = new ArrayList<>();
+
+        String sql = "SELECT * FROM produto ORDER BY preco_produto DESC";
+
+        try {
+
+            conectar(sql);
+            ResultSet resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                int id = resultado.getInt("id_produto");
+                String codigoProduto = resultado.getString("cod_produto");
+                String nomeProduto = resultado.getString("nome_produto");
+                double precoProduto = resultado.getDouble("preco_produto");
+
+                Produtos produto = new Produtos(codigoProduto, nomeProduto, precoProduto);
+
+                listaProdutos.add(produto);
+
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao buscar os produtos do Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            encerrarConexao();
+        }
+
+        return (listaProdutos);
+
     }
 
 }

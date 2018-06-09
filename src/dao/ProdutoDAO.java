@@ -13,5 +13,5 @@ public interface ProdutoDAO {
     //Adicionado
     public Produtos procurarPorCodProduto(String codProduto);
     public List<Produtos> listarPorNome(String nomeProduto);
-    public List<Produtos> listarPorMaiorPreco(double precoProduto);
+    public List<Produtos> listarPorMaiorPreco();
 }

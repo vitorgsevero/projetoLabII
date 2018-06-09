@@ -25,7 +25,7 @@ public class ProdutoUI {
         do {
 
             try {
-                op = Console.scanInt("\nBem-vindo ao Menu de Produtos! Informe uma opção: \n1) Cadastrar Produtos \n2) Listar Produtos \n3) Buscar Produtos \n4) Comprar Produtos \n5) Remover Produtos \n6) Atualizar Produtos \n0) Voltar para o menu principal");
+                op = Console.scanInt("\nBem-vindo ao Menu de Produtos! Informe uma opção: \n1) Cadastrar Produtos \n2) Listar Todos Produtos \n3) Listar por maior preço \n4) Procurar por Código de Produto \n5) Comprar Produtos \n6) Remover Produtos \n7) Atualizar Produtos \n0) Voltar para o menu principal");
 
                 switch (op) {
 
@@ -38,15 +38,18 @@ public class ProdutoUI {
                         break;
 
                     case 3:
-                        this.buscarProdutos();
+                        this.listarPorPreco();
                         break;
                     case 4:
-                        this.comprarProdutos();
+                        this.buscarProdutos();
                         break;
                     case 5:
-                        this.removerProdutos();
+                        this.comprarProdutos();
                         break;
                     case 6:
+                        this.removerProdutos();
+                        break;
+                    case 7:
                         this.atualizar();
                         break;
                     case 0:
@@ -90,17 +93,16 @@ public class ProdutoUI {
         Produtos produto = produtoDao.procurarPorCodProduto(codigoProduto);
 
         System.out.println("Informe os dados que deseja alterar, caso não queira, deixe em branco.");
-        
+
         String nomeProduto = Console.scanString("Nome do Produto: ");
         double precoProduto = Console.scanDouble("Preço do Produto: ");
 
         if (!nomeProduto.isEmpty()) { // Se o nome não estiver em branco, o nome é atualizado
             produto.setNomeProduto(nomeProduto);
         }
-        if (precoProduto>0){
+        if (precoProduto > 0) {
             produto.setPrecoProduto(precoProduto);
         }
-        
 
         produtoDao.atualizarDados(produto);
         System.out.println("Dados atualizados com sucesso!");
@@ -127,10 +129,12 @@ public class ProdutoUI {
 
     public void buscarProdutos() {
 
-        System.out.println("\nBuscando Produto: ");
-        String codigoProduto = Console.scanString("Informe o código do produto: ");
-        RepositorioProdutos.getInstance().buscarProdutos(codigoProduto);
 
+    }
+
+    public void listarPorPreco() {
+        List<Produtos> listaProdutos = produtoDao.listarPorMaiorPreco();
+        mostrarProdutos(listaProdutos);
     }
 
     public void comprarProdutos() {
