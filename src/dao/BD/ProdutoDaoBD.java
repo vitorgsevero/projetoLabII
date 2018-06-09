@@ -197,7 +197,38 @@ public class ProdutoDaoBD implements ProdutoDAO {
 
     @Override
     public List<Produtos> listarPorNome(String nomeProduto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        List<Produtos> listaProdutos = new ArrayList<>();
+        
+        String sql = "SELECT * FROM produto WHERE UPPER(nome_produto) LIKE UPPER(?)";
+
+        try {
+
+            conectar(sql);
+            comando.setString(1, "%" + nomeProduto + "%");
+            ResultSet resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                int id = resultado.getInt("id_produto");
+                String codigoProduto = resultado.getString("cod_produto");
+                String nome = resultado.getString("nome_produto");
+                double precoProduto = resultado.getDouble("preco_produto");
+
+                Produtos produto = new Produtos(codigoProduto, nome, precoProduto);
+
+                listaProdutos.add(produto);
+
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao buscar os produtos do Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            encerrarConexao();
+        }
+
+        return (listaProdutos);
+
     }
 
     @Override

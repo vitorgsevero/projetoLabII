@@ -25,7 +25,7 @@ public class ProdutoUI {
         do {
 
             try {
-                op = Console.scanInt("\nBem-vindo ao Menu de Produtos! Informe uma opção: \n1) Cadastrar Produtos \n2) Listar Todos Produtos \n3) Listar por maior preço \n4) Procurar por Código de Produto \n5) Comprar Produtos \n6) Remover Produtos \n7) Atualizar Produtos \n0) Voltar para o menu principal");
+                op = Console.scanInt("\nBem-vindo ao Menu de Produtos! Informe uma opção: \n1) Cadastrar Produtos \n2) Listar Todos Produtos \n3) Listar por maior preço \n4) Listar por nome \n5) Comprar Produtos \n6) Remover Produtos \n7) Atualizar Produtos \n0) Voltar para o menu principal");
 
                 switch (op) {
 
@@ -128,7 +128,9 @@ public class ProdutoUI {
     }
 
     public void buscarProdutos() {
-
+        String nomeProduto = Console.scanString("\nInforme o nome do produto: ");
+        List<Produtos> listaProdutos = produtoDao.listarPorNome(nomeProduto);
+        mostrarProdutos(listaProdutos);
 
     }
 
