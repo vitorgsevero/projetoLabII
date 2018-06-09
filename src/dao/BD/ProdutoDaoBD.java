@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import model.Clientes;
 import model.Produtos;
@@ -44,10 +45,10 @@ public class ProdutoDaoBD implements ProdutoDAO {
 
     @Override
     public void cadastrarProdutos(Produtos produto) {
-        
-    int idProduto = 1;
-        
-     try {
+
+        int idProduto = 1;
+
+        try {
             String sql = "INSERT INTO produto (cod_produto, nome_produto, preco_produto) "
                     + "VALUES (?,?,?)";
 
@@ -78,20 +79,16 @@ public class ProdutoDaoBD implements ProdutoDAO {
             encerrarConexao();
         }
 
-        
-        
-        
-        
     }
 
     @Override
     public void removerProdutos(Produtos produto) {
-               try {
+        try {
 
             String sql = "DELETE FROM produto WHERE cod_produto = ?";
 
             this.conectar(sql);
-            
+
             this.comando.setString(1, produto.getCodProduto());
             this.comando.executeUpdate();
 
@@ -105,12 +102,59 @@ public class ProdutoDaoBD implements ProdutoDAO {
 
     @Override
     public void atualizarDados(Produtos produto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "UPDATE produto SET cod_produto=?, nome_produto=?, preco_produto=? "
+                    + "WHERE cod_produto=?";
+
+            conectar(sql);
+            comando.setString(1, produto.getCodProduto());
+            comando.setString(2, produto.getNomeProduto());
+            comando.setDouble(3, produto.getPrecoProduto());
+
+            comando.setString(4, produto.getCodProduto());
+            
+            comando.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.err.println("Erro: Problema ao atualizar produto no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            encerrarConexao();
+        }
+
     }
 
     @Override
     public List<Produtos> listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Produtos> listaProdutos = new ArrayList<>();
+
+        String sql = "SELECT * FROM produto";
+
+        try {
+            conectar(sql);
+
+            ResultSet resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                int id = resultado.getInt("id_produto");
+                String codigoProduto = resultado.getString("cod_produto");
+                String nomeProduto = resultado.getString("nome_produto");
+                double precoProduto = resultado.getDouble("preco_produto");
+
+                Produtos produto = new Produtos(codigoProduto, nomeProduto, precoProduto);
+
+                listaProdutos.add(produto);
+
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao buscar os produtos do Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            encerrarConexao();
+        }
+
+        return (listaProdutos);
     }
 
     @Override
@@ -120,7 +164,7 @@ public class ProdutoDaoBD implements ProdutoDAO {
 
     @Override
     public Produtos procurarPorCodProduto(String codProduto) {
-             String sql = "SELECT * FROM produto WHERE cod_produto = ?";
+        String sql = "SELECT * FROM produto WHERE cod_produto = ?";
 
         try {
 
@@ -136,7 +180,6 @@ public class ProdutoDaoBD implements ProdutoDAO {
                 double precoProduto = resultado.getDouble("preco_produto");
 
                 Produtos produto = new Produtos(codigoProduto, nomeProduto, precoProduto);
-                // new Clientes(nome, cpf, email, numConta,  DateUtil.stringToDate(dataString)
 
                 return produto;
 
@@ -149,7 +192,7 @@ public class ProdutoDaoBD implements ProdutoDAO {
             encerrarConexao();
         }
 
-        return (null);  
+        return (null);
     }
 
     @Override

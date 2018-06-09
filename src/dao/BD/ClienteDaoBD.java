@@ -125,7 +125,7 @@ public class ClienteDaoBD implements ClienteDAO {
             comando.executeUpdate();
 
         } catch (SQLException ex) {
-            System.err.println("Erro: Problema ao atualizar paciente no Banco de Dados!");
+            System.err.println("Erro: Problema ao atualizar cliente no Banco de Dados!");
             throw new BDException(ex);
         } finally {
             encerrarConexao();
@@ -158,7 +158,7 @@ public class ClienteDaoBD implements ClienteDAO {
             }
 
         } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao buscar os pacientes do Banco de Dados!");
+            System.err.println("Erro de Sistema - Problema ao buscar os clientes do Banco de Dados!");
             throw new BDException(ex);
         } finally {
             encerrarConexao();
@@ -199,7 +199,7 @@ public class ClienteDaoBD implements ClienteDAO {
             }
 
         } catch (SQLException ex) {
-            System.err.println("Erro: Problema ao buscar o paciente pelo rg do Banco de Dados!");
+            System.err.println("Erro: Problema ao buscar o clientes pelo CPF do Banco de Dados!");
             throw new BDException(ex);
         } finally {
             encerrarConexao();

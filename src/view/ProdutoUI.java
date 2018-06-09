@@ -1,6 +1,7 @@
 package view;
 
 import dao.BD.ProdutoDaoBD;
+import java.util.List;
 import model.Clientes;
 import model.Produtos;
 import model.VendaProduto;
@@ -9,6 +10,7 @@ import repositorio.RepositorioOperacaoMonetizacao;
 import repositorio.RepositorioProdutos;
 import repositorio.RepositorioVendaProduto;
 import util.Console;
+import util.DateUtil;
 
 public class ProdutoUI {
 
@@ -23,7 +25,7 @@ public class ProdutoUI {
         do {
 
             try {
-                op = Console.scanInt("\nBem-vindo ao Menu de Produtos! Informe uma opção: \n1) Cadastrar Produtos \n2) Listar Produtos \n3) Buscar Produtos \n4) Comprar Produtos \n5) Remover Produtos \n0) Voltar para o menu principal");
+                op = Console.scanInt("\nBem-vindo ao Menu de Produtos! Informe uma opção: \n1) Cadastrar Produtos \n2) Listar Produtos \n3) Buscar Produtos \n4) Comprar Produtos \n5) Remover Produtos \n6) Atualizar Produtos \n0) Voltar para o menu principal");
 
                 switch (op) {
 
@@ -32,7 +34,7 @@ public class ProdutoUI {
                         break;
 
                     case 2:
-                        this.listarProdutos();
+                        this.mostrarProdutos();
                         break;
 
                     case 3:
@@ -43,6 +45,9 @@ public class ProdutoUI {
                         break;
                     case 5:
                         this.removerProdutos();
+                        break;
+                    case 6:
+                        this.atualizar();
                         break;
                     case 0:
                         System.out.println("\nVoltando para o menu principal...");
@@ -79,6 +84,28 @@ public class ProdutoUI {
         }
     }
 
+    public void atualizar() {
+        String codigoProduto = Console.scanString("Informe o código do produto que você deseja alterar: ");
+
+        Produtos produto = produtoDao.procurarPorCodProduto(codigoProduto);
+
+        System.out.println("Informe os dados que deseja alterar, caso não queira, deixe em branco.");
+        
+        String nomeProduto = Console.scanString("Nome do Produto: ");
+        double precoProduto = Console.scanDouble("Preço do Produto: ");
+
+        if (!nomeProduto.isEmpty()) { // Se o nome não estiver em branco, o nome é atualizado
+            produto.setNomeProduto(nomeProduto);
+        }
+        if (precoProduto>0){
+            produto.setPrecoProduto(precoProduto);
+        }
+        
+
+        produtoDao.atualizarDados(produto);
+        System.out.println("Dados atualizados com sucesso!");
+    }
+
     public void removerProdutos() {
 
         String codProduto = Console.scanString("Informe o Código do Produto para encontrar o produto que deseja remover: ");
@@ -93,25 +120,9 @@ public class ProdutoUI {
         }
     }
 
-    public void listarProdutos() {
-
-        try {
-            if (RepositorioProdutos.getInstance().estaVazio()) {
-                System.out.println("\nNenhum produto cadastrado...");
-            } else {
-                System.out.println("\nProdutos cadastrados: ");
-                for (Produtos produtos : RepositorioProdutos.getInstance().getProdutos()) {
-                    System.out.println("------------------------");
-                    System.out.println("Código do Produto: " + produtos.getCodProduto());
-                    System.out.println("Nome do Produto: " + produtos.getNomeProduto().toUpperCase());
-                    System.out.println("Preço do Produto: " + produtos.getPrecoProduto() + " R$");
-                    System.out.println("------------------------");
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Não foi possível listar os produtos!");
-        }
-
+    public void mostrarProdutos() {
+        List<Produtos> listaProdutos = produtoDao.listar();
+        mostrarProdutos(listaProdutos);
     }
 
     public void buscarProdutos() {
@@ -182,6 +193,22 @@ public class ProdutoUI {
             System.out.println("Não foi possível comprar o produto desejado!");
         }
 
+    }
+
+    private void mostrarProdutos(List<Produtos> listaProdutos) {
+        if (listaProdutos.isEmpty()) {
+            System.out.println("Nenhum produto encontrado!");
+        } else {
+            System.out.println("------------------------------------------------\n");
+            System.out.println(String.format("%-10s", "Código") + "\t"
+                    + String.format("%-20s", "|Nome") + "\t"
+                    + String.format("%-20s", "|Preço"));
+            for (Produtos produto : listaProdutos) {
+                System.out.println(String.format("%-10s", produto.getCodProduto()) + "\t"
+                        + String.format("%-20s", "|" + produto.getNomeProduto()) + "\t"
+                        + String.format("%-20s", "|" + produto.getPrecoProduto()));
+            }
+        }
     }
 
 }
