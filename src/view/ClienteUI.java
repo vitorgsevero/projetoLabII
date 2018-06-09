@@ -53,7 +53,7 @@ public class ClienteUI {
                 }
 
             } catch (Exception e) {
-                System.out.println("Não foi possível acessar as opções do Menu de Clientes! Por favor, informe uma opção válida.");  
+                System.out.println("Não foi possível acessar as opções do Menu de Clientes! Por favor, informe uma opção válida.");
             }
         } while (op != 0);
 
@@ -61,16 +61,22 @@ public class ClienteUI {
 
     public void cadastrarClientes() {
 
-        System.out.println("\nCadastrando Clientes...");
+        try {
+            System.out.println("\nCadastrando Clientes...");
 
-        String nome = Console.scanString("Informe o nome do cliente: ");
-        String cpf = Console.scanString("Informe o CPF do cliente: ");
-        String email = Console.scanString("Informe o endereço de e-mail do cliente: ");
-        String numConta = Console.scanString(nome.toUpperCase() + ", Informe o número da sua conta para cadastrar: ");
-        // double saldoConta = Console.scanDouble(nome.toUpperCase() + ", Informe o saldo da sua conta: ");
-        String dataString = Console.scanString("Informe a sua data de nascimento: ");
+            String nome = Console.scanString("Informe o nome do cliente: ");
+            String cpf = Console.scanString("Informe o CPF do cliente: ");
+            String email = Console.scanString("Informe o endereço de e-mail do cliente: ");
+            String numConta = Console.scanString(nome.toUpperCase() + ", Informe o número da sua conta para cadastrar: ");
+            // double saldoConta = Console.scanDouble(nome.toUpperCase() + ", Informe o saldo da sua conta: ");
+            String dataString = Console.scanString("Informe a sua data de nascimento: ");
 
-        clienteDao.cadastrarClientes(new Clientes(nome, cpf, email, numConta, DateUtil.stringToDate(dataString)));
+            clienteDao.cadastrarClientes(new Clientes(nome, cpf, email, numConta, DateUtil.stringToDate(dataString)));
+
+        } catch (Exception e) {
+            System.out.println("Não foi possível cadastrar cliente. Algum valor inválido foi informado.");
+
+        }
 
     }
 
@@ -117,13 +123,12 @@ public class ClienteUI {
 
     }
 
-     private void consultarClientesPorNome() {
+    private void consultarClientesPorNome() {
         String nomeCliente = Console.scanString("Informe o nome do cliente que deseja buscar: ");
         List<Clientes> listaClientes = clienteDao.listarPorNome(nomeCliente);
         this.mostrarClientes(listaClientes);
 
     }
-
 
     private void mostrarClientes(List<Clientes> listaClientes) {
         if (listaClientes.isEmpty()) {

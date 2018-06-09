@@ -1,5 +1,7 @@
 package view;
 
+
+import dao.BD.ProdutoDaoBD;
 import model.Clientes;
 import model.Produtos;
 import model.VendaProduto;
@@ -9,8 +11,13 @@ import repositorio.RepositorioProdutos;
 import repositorio.RepositorioVendaProduto;
 import util.Console;
 
-
 public class ProdutoUI {
+
+    private ProdutoDaoBD produtoDao;
+
+    public ProdutoUI() {
+        produtoDao = new ProdutoDaoBD();
+    }
 
     public void menuProdutos() {
         int op = 0;
@@ -59,19 +66,11 @@ public class ProdutoUI {
             System.out.println("\nCadastrando Produtos...");
 
             String codigoProduto = Console.scanString("Informe o código do Produto: ");
-            if (RepositorioProdutos.getInstance().produtoIgual(codigoProduto)) {
-
-                System.out.println("Produto já cadastrado, informe outro código de produto. ");
-
-            } else {
-
-                String nomeProduto = Console.scanString("Informe o nome do Produto: ");
-                double precoProduto = Console.scanDouble("Informe o preço do Produto: ");
-                
-                RepositorioProdutos.getInstance().add(new Produtos(nomeProduto, codigoProduto, precoProduto));
-
-            }
-
+            String nomeProduto = Console.scanString("Informe o nome do Produto: ");
+            double precoProduto = Console.scanDouble("Informe o preço do Produto: ");
+            
+            produtoDao.cadastrarProdutos(new Produtos(codigoProduto, nomeProduto, precoProduto));
+                   
         } catch (Exception e) {
 
             System.out.println("Não foi possível cadastrar o produto, algum valor inválido foi informado.");
@@ -143,19 +142,19 @@ public class ProdutoUI {
 
                         if (clientes.getSaldoConta() < produtos.getPrecoProduto()) {
                             System.out.println("\nSaldo insuficiente...");
-                            
+
                         } else {
-                            
+
                             String codVenda = Console.scanString("Informe o código da venda: ");
-                            int qtdeProdutos = Console.scanInt("Informe a quantidade do produto " +produtos.getNomeProduto()+ ": ");
+                            int qtdeProdutos = Console.scanInt("Informe a quantidade do produto " + produtos.getNomeProduto() + ": ");
                             double totalVenda = qtdeProdutos * produtos.getPrecoProduto();
-                                                                                                        
-                            RepositorioVendaProduto.getInstance().add(new VendaProduto(codVenda, qtdeProdutos , totalVenda));
-                            
+
+                            RepositorioVendaProduto.getInstance().add(new VendaProduto(codVenda, qtdeProdutos, totalVenda));
+
                             System.out.println("Parabéns, você comprou o(a) " + produtos.getNomeProduto() + "!");
                             System.out.println("Total da Venda: " + totalVenda);
-                            System.out.println("Seu saldo anterior: " + clientes.getSaldoConta()); 
-                            
+                            System.out.println("Seu saldo anterior: " + clientes.getSaldoConta());
+
                             double novoSaldoConta = clientes.getSaldoConta() - produtos.getPrecoProduto();
                             clientes.setSaldoConta(novoSaldoConta);
                             System.out.println("Novo saldo: " + clientes.getSaldoConta());

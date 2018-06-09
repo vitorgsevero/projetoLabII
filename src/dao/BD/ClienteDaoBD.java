@@ -42,7 +42,6 @@ public class ClienteDaoBD implements ClienteDAO {
             throw new BDException(ex);
 
         }
-
     }
 
     @Override
