@@ -6,7 +6,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
+import model.Clientes;
 import model.Produtos;
 
 public class ProdutoDaoBD implements ProdutoDAO {
@@ -83,12 +85,26 @@ public class ProdutoDaoBD implements ProdutoDAO {
     }
 
     @Override
-    public void removerProdutos(Produtos pruduto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removerProdutos(Produtos produto) {
+               try {
+
+            String sql = "DELETE FROM produto WHERE cod_produto = ?";
+
+            this.conectar(sql);
+            
+            this.comando.setString(1, produto.getCodProduto());
+            this.comando.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.err.println("Erro: Problema ao deletar paciente no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            encerrarConexao();
+        }
     }
 
     @Override
-    public void atualizarDados(Produtos pruduto) {
+    public void atualizarDados(Produtos produto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -103,8 +119,37 @@ public class ProdutoDaoBD implements ProdutoDAO {
     }
 
     @Override
-    public Produtos procurarPorCpf(String codProduto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Produtos procurarPorCodProduto(String codProduto) {
+             String sql = "SELECT * FROM produto WHERE cod_produto = ?";
+
+        try {
+
+            conectar(sql);
+            comando.setString(1, codProduto);
+
+            ResultSet resultado = comando.executeQuery();
+
+            if (resultado.next()) {
+                int idProduto = resultado.getInt("id_produto");
+                String codigoProduto = resultado.getString("cod_produto");
+                String nomeProduto = resultado.getString("nome_produto");
+                double precoProduto = resultado.getDouble("preco_produto");
+
+                Produtos produto = new Produtos(codigoProduto, nomeProduto, precoProduto);
+                // new Clientes(nome, cpf, email, numConta,  DateUtil.stringToDate(dataString)
+
+                return produto;
+
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Erro: Problema ao buscar o produto pelo código do Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            encerrarConexao();
+        }
+
+        return (null);  
     }
 
     @Override

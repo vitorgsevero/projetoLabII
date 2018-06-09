@@ -1,6 +1,5 @@
 package view;
 
-
 import dao.BD.ProdutoDaoBD;
 import model.Clientes;
 import model.Produtos;
@@ -24,7 +23,7 @@ public class ProdutoUI {
         do {
 
             try {
-                op = Console.scanInt("\nBem-vindo ao Menu de Produtos! Informe uma opção: \n1) Cadastrar Produtos \n2) Listar Produtos \n3) Buscar Produtos \n4) Comprar produtos \n0) Voltar para o menu principal");
+                op = Console.scanInt("\nBem-vindo ao Menu de Produtos! Informe uma opção: \n1) Cadastrar Produtos \n2) Listar Produtos \n3) Buscar Produtos \n4) Comprar Produtos \n5) Remover Produtos \n0) Voltar para o menu principal");
 
                 switch (op) {
 
@@ -42,7 +41,9 @@ public class ProdutoUI {
                     case 4:
                         this.comprarProdutos();
                         break;
-
+                    case 5:
+                        this.removerProdutos();
+                        break;
                     case 0:
                         System.out.println("\nVoltando para o menu principal...");
                         break;
@@ -68,13 +69,27 @@ public class ProdutoUI {
             String codigoProduto = Console.scanString("Informe o código do Produto: ");
             String nomeProduto = Console.scanString("Informe o nome do Produto: ");
             double precoProduto = Console.scanDouble("Informe o preço do Produto: ");
-            
+
             produtoDao.cadastrarProdutos(new Produtos(codigoProduto, nomeProduto, precoProduto));
-                   
+
         } catch (Exception e) {
 
             System.out.println("Não foi possível cadastrar o produto, algum valor inválido foi informado.");
 
+        }
+    }
+
+    public void removerProdutos() {
+
+        String codProduto = Console.scanString("Informe o Código do Produto para encontrar o produto que deseja remover: ");
+
+        Produtos produto = produtoDao.procurarPorCodProduto(codProduto);
+
+        if (UIUtil.getConfirmacao("Você tem certeza que deseja excluir o produto?")) {
+            produtoDao.removerProdutos(produto);
+            System.out.println("Produto excluído com sucesso!");
+        } else {
+            System.out.println("Operação cancelada!");
         }
     }
 

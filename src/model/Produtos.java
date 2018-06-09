@@ -8,9 +8,9 @@ public class Produtos {
     private double precoProduto;
     private int idProduto;
 
-    public Produtos(String nomeProduto, String codProduto, double precoProduto) {
-        this.nomeProduto = nomeProduto;
+    public Produtos(String codProduto, String nomeProduto, double precoProduto) {
         this.codProduto = codProduto;
+        this.nomeProduto = nomeProduto;
         this.precoProduto = precoProduto;
     }
 
