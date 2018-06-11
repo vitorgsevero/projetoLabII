@@ -67,11 +67,11 @@ public class ClienteUI {
             String nome = Console.scanString("Informe o nome do cliente: ");
             String cpf = Console.scanString("Informe o CPF do cliente: ");
             String email = Console.scanString("Informe o endereço de e-mail do cliente: ");
+            double saldoConta = Console.scanDouble(nome.toUpperCase() + ", Informe o saldo da sua conta: ");
             String numConta = Console.scanString(nome.toUpperCase() + ", Informe o número da sua conta para cadastrar: ");
-            // double saldoConta = Console.scanDouble(nome.toUpperCase() + ", Informe o saldo da sua conta: ");
             String dataString = Console.scanString("Informe a sua data de nascimento: ");
 
-            clienteDao.cadastrarClientes(new Clientes(nome, cpf, email, numConta, DateUtil.stringToDate(dataString)));
+            clienteDao.cadastrarClientes(new Clientes(nome, cpf, email, saldoConta, numConta, DateUtil.stringToDate(dataString)));
 
         } catch (Exception e) {
             System.out.println("Não foi possível cadastrar cliente. Algum valor inválido foi informado.");

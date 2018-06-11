@@ -16,12 +16,12 @@ public class Clientes {
     private int idCliente=0;
 
 
-    public Clientes(String nomeCliente, String cpfCliente, String emailCliente, String numConta,  LocalDate dataNascimento) { //
+    public Clientes(String nomeCliente, String cpfCliente, String emailCliente, double saldoConta, String numConta,  LocalDate dataNascimento) { //
         this.nomeCliente = nomeCliente;
         this.cpfCliente = cpfCliente;
         this.emailCliente = emailCliente;
+        this.saldoConta = saldoConta;
         this.numConta = numConta;
-        //this.saldoConta = saldoConta;
         this.dataNascimento = dataNascimento;
        // this.valorTransferencia = valorTransferencia;
     }

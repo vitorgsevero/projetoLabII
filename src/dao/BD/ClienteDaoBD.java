@@ -50,8 +50,8 @@ public class ClienteDaoBD implements ClienteDAO {
         int id = 0;
 
         try {
-            String sql = "INSERT INTO cliente (nome, cpf, email, numconta, datanascimento) "
-                    + "VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO cliente (nome, cpf, email, saldoconta, numconta, datanascimento) "
+                    + "VALUES (?,?,?,?,?,?)";
 
             //Foi criado um novo método conectar para obter o id
             conectarObtendoId(sql);
@@ -59,12 +59,12 @@ public class ClienteDaoBD implements ClienteDAO {
             comando.setString(1, cliente.getNomeCliente());
             comando.setString(2, cliente.getCpfCliente());
             comando.setString(3, cliente.getEmailCliente());
-            comando.setString(4, cliente.getNumConta());
-            //comando.setDouble(5, cliente.getSaldoConta());
+            comando.setDouble(4, cliente.getSaldoConta());
+            comando.setString(5, cliente.getNumConta());
 
             //Trabalhando com data: convertendo LocalDate -> Date
             Date dataNascimento = Date.valueOf(cliente.getDataNascimento());
-            comando.setDate(5, dataNascimento);
+            comando.setDate(6, dataNascimento);
 
             comando.executeUpdate();
 
@@ -213,7 +213,7 @@ public class ClienteDaoBD implements ClienteDAO {
         
         List<Clientes> listaClientes = new ArrayList<>();
         
-        String sql = "SELECT * FROM cliente WHERE nome LIKE ?";
+        String sql = "SELECT * FROM cliente WHERE UPPER(nome) LIKE UPPER(?)";
 
         try {
             conectar(sql);
