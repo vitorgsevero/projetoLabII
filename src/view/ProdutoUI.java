@@ -77,8 +77,11 @@ public class ProdutoUI {
             String codigoProduto = Console.scanString("Informe o código do Produto: ");
             String nomeProduto = Console.scanString("Informe o nome do Produto: ");
             double precoProduto = Console.scanDouble("Informe o preço do Produto: ");
-
-            produtoDao.cadastrarProdutos(new Produtos(codigoProduto, nomeProduto, precoProduto));
+            if (codigoProduto.isEmpty() || nomeProduto.isEmpty() || precoProduto < 0) {
+                System.out.println("Todos os campos são de preenchimento obrigatório. Tente cadastrar novamente sem valores em branco!");
+            } else {
+                produtoDao.cadastrarProdutos(new Produtos(codigoProduto, nomeProduto, precoProduto));
+            }
 
         } catch (Exception e) {
 
@@ -88,37 +91,45 @@ public class ProdutoUI {
     }
 
     public void atualizar() {
+
         String codigoProduto = Console.scanString("Informe o código do produto que você deseja alterar: ");
+        if (codigoProduto.isEmpty()) {
+            System.out.println("Todos os campos são de preenchimento obrigatório. Tente cadastrar novamente sem valores em branco!");
+        } else {
+            
+            Produtos produto = produtoDao.procurarPorCodProduto(codigoProduto);
 
-        Produtos produto = produtoDao.procurarPorCodProduto(codigoProduto);
+            System.out.println("Informe os dados que deseja alterar, caso não queira, deixe em branco.");
 
-        System.out.println("Informe os dados que deseja alterar, caso não queira, deixe em branco.");
+            String nomeProduto = Console.scanString("Nome do Produto: ");
+            double precoProduto = Console.scanDouble("Preço do Produto: ");
 
-        String nomeProduto = Console.scanString("Nome do Produto: ");
-        double precoProduto = Console.scanDouble("Preço do Produto: ");
+            if (!nomeProduto.isEmpty()) { // Se o nome não estiver em branco, o nome é atualizado
+                produto.setNomeProduto(nomeProduto);
+            }
+            if (precoProduto > 0) {
+                produto.setPrecoProduto(precoProduto);
+            }
 
-        if (!nomeProduto.isEmpty()) { // Se o nome não estiver em branco, o nome é atualizado
-            produto.setNomeProduto(nomeProduto);
+            produtoDao.atualizarDados(produto);
+            System.out.println("Dados atualizados com sucesso!");
         }
-        if (precoProduto > 0) {
-            produto.setPrecoProduto(precoProduto);
-        }
-
-        produtoDao.atualizarDados(produto);
-        System.out.println("Dados atualizados com sucesso!");
     }
 
     public void removerProdutos() {
 
         String codProduto = Console.scanString("Informe o Código do Produto para encontrar o produto que deseja remover: ");
-
-        Produtos produto = produtoDao.procurarPorCodProduto(codProduto);
-
-        if (UIUtil.getConfirmacao("Você tem certeza que deseja excluir o produto?")) {
-            produtoDao.removerProdutos(produto);
-            System.out.println("Produto excluído com sucesso!");
+        if (codProduto.isEmpty()) {
+            System.out.println("Todos os campos são de preenchimento obrigatório. Tente cadastrar novamente sem valores em branco!");
         } else {
-            System.out.println("Operação cancelada!");
+            Produtos produto = produtoDao.procurarPorCodProduto(codProduto);
+
+            if (UIUtil.getConfirmacao("Você tem certeza que deseja excluir o produto?")) {
+                produtoDao.removerProdutos(produto);
+                System.out.println("Produto excluído com sucesso!");
+            } else {
+                System.out.println("Operação cancelada!");
+            }
         }
     }
 

@@ -71,7 +71,11 @@ public class ClienteUI {
             String numConta = Console.scanString(nome.toUpperCase() + ", Informe o número da sua conta para cadastrar: ");
             String dataString = Console.scanString("Informe a sua data de nascimento: ");
 
-            clienteDao.cadastrarClientes(new Clientes(nome, cpf, email, saldoConta, numConta, DateUtil.stringToDate(dataString)));
+            if (nome.isEmpty() || cpf.isEmpty() || email.isEmpty() || numConta.isEmpty() || dataString.isEmpty() || saldoConta < 0) {
+                System.out.println("Todos os campos são de preenchimento obrigatório. Tente cadastrar novamente sem valores em branco!");
+            } else {
+                clienteDao.cadastrarClientes(new Clientes(nome, cpf, email, saldoConta, numConta, DateUtil.stringToDate(dataString)));
+            }
 
         } catch (Exception e) {
             System.out.println("Não foi possível cadastrar cliente. Algum valor inválido foi informado.");
@@ -88,39 +92,46 @@ public class ClienteUI {
     public void removerClientes() {
 
         String cpfCliente = Console.scanString("Informe o CPF para encontrar o cliente que deseja remover: ");
-
-        Clientes clientes = clienteDao.procurarPorCpf(cpfCliente);
-
-        if (UIUtil.getConfirmacao("Você tem certeza que deseja excluir o cliente?")) {
-            clienteDao.removerClientes(clientes);
-            System.out.println("Cliente excluído com sucesso!");
+        if (cpfCliente.isEmpty()) {
+            System.out.println("Todos os campos são de preenchimento obrigatório. Tente remover novamente sem valores em branco!");
         } else {
-            System.out.println("Operação cancelada!");
-        }
 
+            Clientes clientes = clienteDao.procurarPorCpf(cpfCliente);
+
+            if (UIUtil.getConfirmacao("Você tem certeza que deseja excluir o cliente?")) {
+                clienteDao.removerClientes(clientes);
+                System.out.println("Cliente excluído com sucesso!");
+            } else {
+                System.out.println("Operação cancelada!");
+            }
+        }
     }
 
     public void atualizar() {
 
         String cpfCliente = Console.scanString("CPF do cliente a ser alterado: ");
 
-        Clientes clientes = clienteDao.procurarPorCpf(cpfCliente);
+        if (cpfCliente.isEmpty()) {
+            System.out.println("Todos os campos são de preenchimento obrigatório. Tente atualizar novamente sem valores em branco!");
+        } else {
 
-        System.out.println("Informe os dados que deseja alterar, caso não queira, deixe em branco.");
+            Clientes clientes = clienteDao.procurarPorCpf(cpfCliente);
 
-        String nomeCliente = Console.scanString("Nome: ");
-        String dataString = Console.scanString("Data de Nascimento: ");
+            System.out.println("Informe os dados que deseja alterar, caso não queira, deixe em branco.");
 
-        if (!nomeCliente.isEmpty()) { // Se o nome não estiver em branco, o nome é atualizado
-            clientes.setNomeCliente(nomeCliente);
+            String nomeCliente = Console.scanString("Nome: ");
+            String dataString = Console.scanString("Data de Nascimento: ");
+
+            if (!nomeCliente.isEmpty()) { // Se o nome não estiver em branco, o nome é atualizado
+                clientes.setNomeCliente(nomeCliente);
+            }
+            if (!dataString.isEmpty()) { // Se a data de nascimento não estiver em branco, o data é atualizada
+                clientes.setDataNascimento(DateUtil.stringToDate(dataString));
+            }
+
+            clienteDao.atualizarDados(clientes);
+            System.out.println("Dados atualizados com sucesso!");
         }
-        if (!dataString.isEmpty()) { // Se a data de nascimento não estiver em branco, o data é atualizada
-            clientes.setDataNascimento(DateUtil.stringToDate(dataString));
-        }
-
-        clienteDao.atualizarDados(clientes);
-        System.out.println("Dados atualizados com sucesso!");
-
     }
 
     private void consultarClientesPorNome() {
