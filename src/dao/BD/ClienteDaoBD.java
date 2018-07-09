@@ -236,7 +236,7 @@ public class ClienteDaoBD implements ClienteDAO {
             }
 
         } catch (SQLException ex) {
-            System.err.println("Erro: Problema ao buscar os pacientes pelo nome do Banco de Dados!");
+            System.err.println("Erro: Problema ao buscar os clientes pelo nome do Banco de Dados!");
             throw new BDException(ex);
         } finally {
             encerrarConexao();

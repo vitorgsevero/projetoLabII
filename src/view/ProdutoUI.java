@@ -77,7 +77,7 @@ public class ProdutoUI {
             String codigoProduto = Console.scanString("Informe o código do Produto: ");
             String nomeProduto = Console.scanString("Informe o nome do Produto: ");
             double precoProduto = Console.scanDouble("Informe o preço do Produto: ");
-            if (codigoProduto.isEmpty() || nomeProduto.isEmpty() || precoProduto < 0) {
+            if (codigoProduto.isEmpty() || nomeProduto.isEmpty() || precoProduto <= 0) {
                 System.out.println("Todos os campos são de preenchimento obrigatório. Tente cadastrar novamente sem valores em branco!");
             } else {
                 produtoDao.cadastrarProdutos(new Produtos(codigoProduto, nomeProduto, precoProduto));
