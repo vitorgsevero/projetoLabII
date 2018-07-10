@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="painelFormularioCliente" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PainelTabelaClienteController">
+<AnchorPane id="AnchorPane" fx:id="painelFormularioCliente" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClienteController">
    <children>
       <GridPane layoutX="117.0" layoutY="98.0" prefHeight="219.0" prefWidth="337.0">
         <columnConstraints>
@@ -41,7 +41,7 @@
             <TextField fx:id="TextFieldNumeroContaCliente" promptText="Informe o número da conta sem espaços" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
-      <Button layoutX="117.0" layoutY="336.0" mnemonicParsing="false" text="Cancelar " />
+      <Button layoutX="117.0" layoutY="336.0" mnemonicParsing="false" text="Cancelar" />
       <Button layoutX="371.0" layoutY="335.0" mnemonicParsing="false" text="Cadastrar" />
    </children>
 </AnchorPane>

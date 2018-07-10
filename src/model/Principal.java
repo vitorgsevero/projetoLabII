@@ -13,7 +13,7 @@ public class Principal extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("view/PainelTabelaCliente.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("PainelTabelaCliente.fxml"));
         
         Scene scene = new Scene(root);
         

@@ -7,9 +7,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="painelTabelaPaciente" prefHeight="350.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.senacrs.consultorio.controller.PacienteController">
+<VBox fx:id="painelTabelaPaciente" prefHeight="350.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClienteController">
    <children>
-      <ToolBar prefHeight="40.0" prefWidth="200.0">
+      <ToolBar fx:id="tableViewClientes" prefHeight="40.0" prefWidth="200.0">
         <items>
           <Button mnemonicParsing="false" onAction="#tratarBotaoCadastrar" text="Cadastrar" />
             <Button mnemonicParsing="false" onAction="#tratarBotaoEditar" text="Editar" />
@@ -19,7 +19,7 @@
             <Insets />
          </VBox.margin>
       </ToolBar>
-      <TableView fx:id="tableViewPacientes" prefHeight="314.0" prefWidth="420.0">
+      <TableView fx:id="tableViewClientes" prefHeight="314.0" prefWidth="420.0">
         <columns>
           <TableColumn fx:id="tableColumnCpf" prefWidth="113.0" text="CPF" />
           <TableColumn fx:id="tableColumnNome" prefWidth="189.0" text="Nome" />

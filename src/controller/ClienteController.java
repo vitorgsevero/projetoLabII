@@ -30,7 +30,7 @@ import negocio.ClienteNegocio;
 import negocio.NegocioException;
 import util.DateUtil;
 import util.PrintUtil;
-import view.ClienteUI;
+
 
 /**
  * FXML Controller class
@@ -66,7 +66,7 @@ public class ClienteController implements Initializable {
     @FXML
     private DatePicker datePickerDataNascimentoCliente;
     @FXML
-    private TextField TextFieldNumeroContaCliente;
+    private TextField textFieldNumeroContaCliente;
 
     private int tela;
     private List<Clientes> listaClientes;
@@ -109,7 +109,7 @@ public class ClienteController implements Initializable {
     public void tratarBotaoCadastrar(ActionEvent event) throws IOException {
         clienteSelecionado = null;
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(Principal.class.getResource("view/PainelFormularioCliente.fxml"));
+        Parent root = FXMLLoader.load(Principal.class.getResource("PainelFormularioCliente.fxml"));
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(painelTabelaCliente.getScene().getWindow());
@@ -121,7 +121,7 @@ public class ClienteController implements Initializable {
     public void tratarBotaoEditar(ActionEvent event) throws IOException {
         Clientes clienteSelec = tableViewClientes.getSelectionModel().getSelectedItem();
         if (clienteSelec != null) {
-            FXMLLoader loader = new FXMLLoader(Principal.class.getResource("view/PainelFormularioCliente.fxml"));
+            FXMLLoader loader = new FXMLLoader(Principal.class.getResource("PainelFormularioCliente.fxml"));
             Parent root = (Parent) loader.load();
 
             ClienteController controller = (ClienteController) loader.getController();
@@ -161,9 +161,12 @@ public class ClienteController implements Initializable {
         {
             try {
                 clienteNegocio.salvar(new Clientes(
-                        textFieldCpfCliente.getText(),
                         textFieldNomeCliente.getText(),
-                        datePickerDataNascimentoCliente.getValue()
+                        textFieldCpfCliente.getText(),
+                        textFieldEmailCliente.getText(),
+                        textFieldSaldoContaCliente.getText(),
+                        datePickerDataNascimentoCliente.getValue(),
+                        textFieldNumeroContaCliente.getText()
                 ));
                 stage.close();
             } catch (NegocioException ex) {
