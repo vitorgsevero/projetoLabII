@@ -11,16 +11,16 @@ public class Clientes {
     private String emailCliente;
     private LocalDate dataNascimento;
     private String numConta;
-    private double saldoConta = 0;
+    private double saldoConta;
     private double valorTransferencia = 0;
     private int idCliente=0;
 
 
-    public Clientes(String nomeCliente, String cpfCliente, String emailCliente, double saldoConta, String numConta,  LocalDate dataNascimento) { //
+    public Clientes(String nomeCliente, String cpfCliente, String emailCliente, String saldoConta, String numConta,  LocalDate dataNascimento) { //
         this.nomeCliente = nomeCliente;
         this.cpfCliente = cpfCliente;
         this.emailCliente = emailCliente;
-        this.saldoConta = saldoConta;
+        this.saldoConta = Double.parseDouble(saldoConta);
         this.numConta = numConta;
         this.dataNascimento = dataNascimento;
        // this.valorTransferencia = valorTransferencia;
@@ -77,8 +77,8 @@ public class Clientes {
     /**
      Criação do setSaldoConta para alterar o valor do saldo quando um depósito ou uma transferência é feita
      */
-    public void setSaldoConta(double saldoConta) {
-        this.saldoConta = saldoConta;
+    public void setSaldoConta(String saldoConta) {
+        this.saldoConta = Double.parseDouble(saldoConta);
     }
 
     public double getValorTransferencia() {

@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/User/workspace/Monetizacao/src/util/PrintUtil.java</file>
+            <file>file:/C:/Users/User/workspace/Monetizacao/src/model/Clientes.java</file>
+            <file>file:/C:/Users/User/workspace/Monetizacao/src/negocio/ClienteNegocio.java</file>
+            <file>file:/C:/Users/User/workspace/Monetizacao/src/model/PainelTabelaCliente.fxml</file>
+            <file>file:/C:/Users/User/workspace/Monetizacao/src/model/Principal.java</file>
+            <file>file:/C:/Users/User/workspace/Monetizacao/src/view/ProdutoUI.java</file>
+            <file>file:/C:/Users/User/workspace/Monetizacao/src/dao/BD/ClienteDaoBD.java</file>
+            <file>file:/C:/Users/User/workspace/Monetizacao/src/model/PainelFormularioCliente.fxml</file>
+            <file>file:/C:/Users/User/workspace/Monetizacao/src/controller/ClienteController.java</file>
+            <file>file:/C:/Users/User/workspace/Monetizacao/src/dao/ClienteDAO.java</file>
+        </group>
     </open-files>
 </project-private>

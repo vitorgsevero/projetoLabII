@@ -9,7 +9,7 @@
 
 <VBox fx:id="painelTabelaPaciente" prefHeight="350.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClienteController">
    <children>
-      <ToolBar fx:id="tableViewClientes" prefHeight="40.0" prefWidth="200.0">
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
           <Button mnemonicParsing="false" onAction="#tratarBotaoCadastrar" text="Cadastrar" />
             <Button mnemonicParsing="false" onAction="#tratarBotaoEditar" text="Editar" />
